@@ -1,10 +1,10 @@
-import { Text, View } from "react-native";
+import { View } from "react-native";
 
 
 export default function Index() {
   return (
-    <View className="flex-1 items-center justify-center bg-green-500">
-      <Text className="text-lg font-bold text-black">Tailwind OKK</Text>
+    <View className="flex-1 items-center justify-center bg-white">
+      
     </View>
   );
 }
