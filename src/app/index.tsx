@@ -8,12 +8,12 @@ export default function Index() {
   const router = useRouter();
 
   return (
-    <View className="flex-1 items-center justify-center bg-white flex-col gap-6">
-      <View className="flex items-center justify-center h-24 w-full">
+    <View className="flex items-center bg-white flex-col gap-6 h-full w-full pt-12">
+      <View className="flex items-center justify-center h-40 w-full ">
         <HeaderLogin></HeaderLogin>
       </View>
-      <View className="flex items-center justify-center px-6 w-full">
-        <Text className="w-full text-black text-2xl font-bold py-6">
+      <View className="flex items-center justify-center px-6 w-full gap-7">
+        <Text className="flex justify-centerw-full text-black text-2xl font-bold py-6">
           Seja bem-vindo!
         </Text>
         <View className="w-full items-center justify-center flex flex-col gap-4 mt-4">  
