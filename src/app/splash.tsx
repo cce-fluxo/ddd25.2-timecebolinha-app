@@ -5,11 +5,10 @@ import { View, Image } from "react-native"
 export default function splashScreen(){
     const router = useRouter()
 
-
 useEffect(() => {
     const timer = setTimeout(()=> {
-        router.replace("/")
-    }, 4000) // tempo em ms que a splash vai ficar visivel no app
+        router.replace("/login")
+    }, 5000) // tempo em ms que a splash vai ficar visivel no app
 
     return () => clearTimeout(timer)
 }, []);
