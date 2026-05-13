@@ -26,13 +26,22 @@ function AnimatedItem({children, delay} : {children : React.ReactNode; delay: nu
     const opacity = useRef(new Animated.Value(0)).current
 
     useEffect(() => {
-        Animated.timing(opacity, {
-            toValue:1 , 
-            duration: 700, 
-            delay, 
-            easing: Easing.out(Easing.ease),
-            useNativeDriver: true
-        }).start();
+        Animated.sequence([
+            Animated.timing(opacity, {
+                toValue: 1, 
+                duration: 500, 
+                delay, 
+                easing: Easing.inOut(Easing.cubic), 
+                useNativeDriver: true
+            }),
+            Animated.delay(400), 
+            Animated.timing(opacity, {
+                toValue: 0, 
+                duration:500, 
+                easing: Easing.inOut(Easing.cubic), 
+                useNativeDriver:  true,
+            }),
+        ]).start();
     },[]);
 
     return(
@@ -42,7 +51,7 @@ function AnimatedItem({children, delay} : {children : React.ReactNode; delay: nu
 
 export default function splashScreen(){
     useEffect(()=> {
-        const totalDuration = 7000; // tempo total que a animação vai aparecer na tela 
+        const totalDuration = 9000; // tempo total que a animação vai aparecer na tela 
         const timer = setTimeout(() => {
             router.replace('/login')
         }, totalDuration)
