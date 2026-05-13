@@ -24,6 +24,7 @@ const elements = [
 
 function AnimatedItem({children, delay} : {children : React.ReactNode; delay: number}){
     const opacity = useRef(new Animated.Value(0)).current
+    const scale = useRef(new Animated.Value(1.04)).current
 
     useEffect(() => {
         Animated.sequence([
@@ -34,7 +35,7 @@ function AnimatedItem({children, delay} : {children : React.ReactNode; delay: nu
                 easing: Easing.inOut(Easing.cubic), 
                 useNativeDriver: true
             }),
-            Animated.delay(400), 
+            Animated.delay(300), 
             Animated.timing(opacity, {
                 toValue: 0, 
                 duration:500, 
@@ -45,21 +46,22 @@ function AnimatedItem({children, delay} : {children : React.ReactNode; delay: nu
     },[]);
 
     return(
-        <Animated.View style={{position: 'absolute' , width: '100%' , height: '100%' , opacity }}>{children}</Animated.View>
+        <Animated.View style={{position: 'absolute' , width: '100%' , height: '100%' , opacity, transform:[{scale}] }}>{children}</Animated.View>
     )
 }
 
 export default function splashScreen(){
     useEffect(()=> {
-        const totalDuration = 9000; // tempo total que a animação vai aparecer na tela 
+        const totalDuration = 7500; // tempo total que a animação vai aparecer na tela
         const timer = setTimeout(() => {
             router.replace('/login')
         }, totalDuration)
-    })
+        return()=> clearTimeout(timer)
+    }, [])
     return(
         <View style={{flex:1}}>
         {elements.map((element, index) => (
-            <AnimatedItem key={index} delay={index*750}>{element}</AnimatedItem>
+            <AnimatedItem key={index} delay={index*600}>{element}</AnimatedItem>
         ))}
         </View>
     )
