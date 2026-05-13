@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import {Animated, View, Text} from "react-native"
+import {Animated, View, Text, Easing} from "react-native"
 import { router } from "expo-router";
 import Sorri from '../components/Sorri';
 import BackgroundAzul from "../components/BackgroundAzul";
@@ -30,6 +30,7 @@ function AnimatedItem({children, delay} : {children : React.ReactNode; delay: nu
             toValue:1 , 
             duration: 700, 
             delay, 
+            easing: Easing.out(Easing.ease),
             useNativeDriver: true
         }).start();
     },[]);
@@ -49,7 +50,7 @@ export default function splashScreen(){
     return(
         <View style={{flex:1}}>
         {elements.map((element, index) => (
-            <AnimatedItem key={index} delay={index*600}>{element}</AnimatedItem>
+            <AnimatedItem key={index} delay={index*750}>{element}</AnimatedItem>
         ))}
         </View>
     )
