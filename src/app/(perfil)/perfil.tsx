@@ -17,7 +17,7 @@ export default function Perfil(){
             </View>
             <View className="flex flex-col justify-start ml-3 mt-7 mx-4 items-stretch border border-gray-400 rounded-xl">
                 {/* fazer uma view com par de image e text para todos os elementos dessa área */}
-                    <View className="flex flex-row justify-start py-2.5 items-center gap-4 px-4">
+                    <View className="flex flex-row justify-start py-2 items-center gap-4 px-4">
                             <Image className="h-7 w-7 mt-2 -ml-0.8" resizeMode="contain" source={require('../../../assets/images/DadosCadastrais.png')}></Image>
                             <Text className="font-lato-regular mt-2 text-black">Dados Cadastrais</Text>
                     </View>
@@ -38,10 +38,16 @@ export default function Perfil(){
 
                     <View className="w-full h-0.5 bg-gray-400"></View>
 
-                    <View className="flex flex-row justify-start py-2.5 items-center gap-4 px-4">
+                    <View className="flex flex-row justify-start py-2 items-center gap-4 px-4">
                             <Image className="w-7 h-7 mt-2 -ml-1" resizeMode="contain" source={require('../../../assets/images/help.png')}></Image>
                             <Text className=" mt-2 font-lato-regular text-black">Ajuda</Text>
                     </View>
+                </View>
+
+                {/* 'botão' de sair */}
+
+                <View className="flex justify-center items-center mt-10">
+                    <Text className="font-lato-regular text-indigo-700 text-lg">Sair</Text>
                 </View>
         </View>
     )
