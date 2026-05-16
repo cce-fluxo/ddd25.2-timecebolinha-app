@@ -19,7 +19,7 @@ export default function Perfil(){
                 {/* fazer uma view com par de image e text para todos os elementos dessa área */}
                     <View className="flex flex-row justify-start h-8 items-center gap-4 px-4">
                             <Image className="h-7 w-7" resizeMode="contain" source={require('../../../assets/images/DadosCadastrais.png')}></Image>
-                            <Text className="font-lato text-black">Dados Cadastrais</Text>
+                            <Text className="font-lato-regular text-black">Dados Cadastrais</Text>
                     </View>
 
                     <View className="flex flex-row justify-start h-8 items-center gap-4 px-4">
