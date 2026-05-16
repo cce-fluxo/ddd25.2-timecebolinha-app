@@ -4,7 +4,15 @@ module.exports = {
   content: ["./src/app/**/*.{js,jsx,ts,tsx}", "./src/components/**/*.{js,jsx,ts,tsx}"],
   presets: [require("nativewind/preset")],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily:{
+        lato: ['Lato'], // nossa fonte padrão do projeto
+        'lato-bold': ['Lato-Bold'], 
+        'lato-italic': ['Lato-Italic'],
+        'lato-thin': ['Lato-Thin'],
+        'lato-regular': ['Lato-Regular'],
+      },
+    },
   },
   plugins: [],
 }
