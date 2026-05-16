@@ -23,7 +23,7 @@ export default function Perfil(){
                     </View>
 
                     <View className="flex flex-row justify-start h-8 items-center gap-4 px-4">
-                        
+
                     </View>
                 </View>
         </View>
