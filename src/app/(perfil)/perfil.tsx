@@ -15,15 +15,32 @@ export default function Perfil(){
                 </View>
                 {/* essa parte de cima foi o display dos dados do usuário, agora aqui em baixo são as funcionalidades, ai vou fazer uma div grandona e ir fazendo outras divs menores que ficam dentro dela */}
             </View>
-            <View className="flex h-full flex-col justify-center items-start border border-gray-300 rounded-xl">
+            <View className="flex flex-col justify-start ml-3 mt-7 mx-4 items-stretch border border-gray-400 rounded-xl">
                 {/* fazer uma view com par de image e text para todos os elementos dessa área */}
-                    <View className="flex flex-row justify-start h-8 items-center gap-4 px-4">
-                            <Image className="h-7 w-7" resizeMode="contain" source={require('../../../assets/images/DadosCadastrais.png')}></Image>
-                            <Text className="font-lato-regular text-black">Dados Cadastrais</Text>
+                    <View className="flex flex-row justify-start py-2.5 items-center gap-4 px-4">
+                            <Image className="h-7 w-7 mt-2 -ml-0.8" resizeMode="contain" source={require('../../../assets/images/DadosCadastrais.png')}></Image>
+                            <Text className="font-lato-regular mt-2 text-black">Dados Cadastrais</Text>
                     </View>
 
-                    <View className="flex flex-row justify-start h-8 items-center gap-4 px-4">
+                   <View className="w-full h-0.5 bg-gray-400"></View>
 
+                    <View className="flex flex-row justify-start py-2 items-center gap-4 px-4 ">
+                            <Image className="w-7 h-7 mt-2 -ml-1" resizeMode="contain" source={require('../../../assets/images/lock.png')}></Image>
+                            <Text className="font-lato-regular mt-2 text-black">Segurança</Text>
+                    </View>
+
+                    <View className="w-full h-0.5 bg-gray-400"></View>
+
+                    <View className="flex flex-row justify-start py-2 items-center gap-4 px-4">
+                            <Image className="w-7 h-7 mt-2 -ml-1" resizeMode="contain" source={require('../../../assets/images/verified_user.png')}></Image>
+                            <Text className=" mt-2 font-lato-regular text-black">Privacidade</Text>
+                    </View>
+
+                    <View className="w-full h-0.5 bg-gray-400"></View>
+
+                    <View className="flex flex-row justify-start py-2.5 items-center gap-4 px-4">
+                            <Image className="w-7 h-7 mt-2 -ml-1" resizeMode="contain" source={require('../../../assets/images/help.png')}></Image>
+                            <Text className=" mt-2 font-lato-regular text-black">Ajuda</Text>
                     </View>
                 </View>
         </View>
