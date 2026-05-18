@@ -1,7 +1,8 @@
 import { View } from "react-native";
 
-export default function BackgroundAzul(){
+export default function BackGroundAzul(){
     return(
-        <View className="bg-blue-700"></View>
+        <View className="h-full w-full bg-blue-700">
+        </View>
     )
 }
