@@ -43,3 +43,11 @@ export async function criarPaciente(payload: PacientePayload) {
     const { data } = await api.post('/paciente', payload);
     return data;
 }
+
+export async function login(email: string, senha_usuario: string) {
+  const { data } = await api.post<{ access_token: string }>('/auth/login', {
+    email: email,
+    senha_usuario: senha_usuario,
+  })
+  return data
+}
