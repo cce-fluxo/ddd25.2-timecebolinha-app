@@ -6,7 +6,7 @@ export default function HeaderLogin() {
       <View className="w-full h-16 bg-white">
 
       </View>
-      <View className="w-full h-24  items-center justify-center bg-white">
+      <View className="w-full h-24 items-center justify-center bg-white">
         <Image source={require('../../assets/images/SorriSyncLogo.png')} />
       </View>
     </View>

@@ -6,8 +6,14 @@ import * as Yup from 'yup';
 import BotaoPadrao from '../../components/BotaoPadrao';
 import HeaderLogin from '../../components/HeaderLogin';
 import { InputBar } from '../../components/InputsCadastro';
+import { criarPaciente } from '../../lib/api';
 
 const registerSchema = Yup.object().shape({
+
+  rg: Yup.string()
+    .min(5, 'RG inválido')
+    .required('RG é obrigatório'),
+
   nome: Yup.string()
     .min(2, 'Nome muito curto')
     .required('Nome é obrigatório'),
@@ -56,6 +62,7 @@ const registerSchema = Yup.object().shape({
 });
 
 const initialValues = {
+  rg: '',
   nome: '',
   sobrenome: '',
   dia: '',
@@ -68,23 +75,39 @@ const initialValues = {
   confirmarSenha: '',
 };
 
-// ─── Página ───────────────────────────────────────────────────────────────────
-
 export default function RegisterScreen() {
     const router = useRouter();
-    function handleSubmit(values: typeof initialValues) {
+    async function handleSubmit(values: typeof initialValues) {
         console.log('Dados do cadastro:', values);
-        // navegação ou chamada à API aqui
+        try {
+            await criarPaciente({
+                rg: values.rg,
+                usuario: {
+                    no_usuario: `${values.nome} ${values.sobrenome}`,
+                    email_usuario: values.email,
+                    senha_usuario: values.senha,
+                    cpf: values.cpf,
+                    nu_celular: values.celular,
+                    genero: 'NaoInformado',
+                    data_nascimento: `${values.ano}-${values.mes}-${values.dia}`,
+                }
+            });
+        } catch (error) {
+            console.error('Erro ao criar paciente:', error);
+        }
+        router.push('/');
     }
 
     return (
         <ScrollView className="flex-1 bg-white">  
-            <HeaderLogin></HeaderLogin>
+            <View className="flex items-center justify-center h-40 w-full">
+                <HeaderLogin></HeaderLogin>
+            </View>
             <ScrollView
             className="flex-1"
             contentContainerClassName="px-6 pt-8 pb-12"
             >
-            <Text className="text-[22px] font-bold text-black mb-6 ">
+            <Text className="text-lg font-bold text-black mb-6 ">
                 Crie sua conta
             </Text>
 
@@ -102,6 +125,19 @@ export default function RegisterScreen() {
                 touched,
                 }) => (
                 <View>
+
+                    {/* RG */}
+                    <InputBar
+                    placeholder="RG"
+                    value={values.rg}
+                    onChangeText={handleChange('rg')}
+                    onBlur={handleBlur('rg')}
+                    error={errors.rg}
+                    touched={touched.rg}
+                    keyboardType="numeric"
+                    maxLength={10}
+                    returnKeyType="next"
+                    />
 
                     {/* Nome */}
                     <InputBar
