@@ -1,5 +1,8 @@
 import {View, Text, Image} from 'react-native'
 import { TouchableOpacity } from 'react-native';
+import { useRouter } from 'expo-router';
+
+const router = useRouter()
 
 export default function AlterarSenha(){
     return(
@@ -7,7 +10,7 @@ export default function AlterarSenha(){
             {/* arrow header */}
             <View className="flex">
             <TouchableOpacity
-            onPress={()=> console.log('clicou')}>
+            onPress={()=> router.push('/(perfil)/perfil')}>
             <Image style={{width:140, height:60, marginTop:20, marginLeft:20}} resizeMode="contain" source={require('../../../../assets/images/Seguranca.png')}></Image>
             <View className="w-full h-0.5 bg-gray-300 mt-1"></View>
             </TouchableOpacity>
@@ -25,7 +28,9 @@ export default function AlterarSenha(){
                 
                 {/* imagem alinhada e na direita , o nosso botao de editar */}
                 <View className="flex flex-row justify-end mr-1 -mt-15">
+                    <TouchableOpacity onPress={()=> router.push('/(perfil)/(alterar-senha)/(email-cadastrado)/email-cadastrado')}>
                     <Image style={{width:25 , height:25, alignSelf:'flex-end'}} resizeMode="contain" source={require('../../../../assets/images/BotaoDeEditar.png')}></Image>
+                    </TouchableOpacity>
                 </View>
                 </View>
                 </View>
