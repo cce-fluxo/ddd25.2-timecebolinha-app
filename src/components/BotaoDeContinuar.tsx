@@ -1,5 +1,8 @@
 import { View } from "react-native";
 import { TouchableOpacity } from "react-native";
+import { useRouter } from "expo-router";
+
+const router = useRouter()
 
 export default function BotaoDeContinuar(){
     return(

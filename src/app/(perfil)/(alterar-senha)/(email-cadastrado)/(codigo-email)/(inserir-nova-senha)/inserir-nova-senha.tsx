@@ -1,16 +1,22 @@
 import { Text, View, Image } from "react-native";
 import { TouchableOpacity } from "react-native";
 import InputBox from "@/src/components/InputBox";
-import CancelarConfirmarButton from "@/src/components/CancelarConfirmarButton";
-import ArrowHeaderAlterarSenha from "@/src/components/ArrowHeaderAlterarSenha";
+import { useRouter } from "expo-router";
 
 export default function InserirNovaSenha(){
+    const router = useRouter()
     return(
         <View className="flex">
 
             {/*header*/}
             <View className="flex">
-            <ArrowHeaderAlterarSenha></ArrowHeaderAlterarSenha>
+            <TouchableOpacity onPress={()=> router.push("/codigo-email")}>
+            <View className="flex">
+            <Image style={{width:140, height:60, marginTop:20, marginLeft:20}} resizeMode="contain" source={require('../../../../../../../assets/images/AlterarSenha.png')}></Image>
+            <View className="w-full h-0.5 bg-gray-300 mt-1"></View>
+            
+        </View>
+            </TouchableOpacity>
             </View>
             
             {/* textinho de cima */}
@@ -30,12 +36,22 @@ export default function InserirNovaSenha(){
             {/*botoes de baixo*/}
 
             <View className="flex mt-10">
-                <CancelarConfirmarButton></CancelarConfirmarButton>
+                {/* no mundo ideal, é pra isso aqui aparecer um pop up e depois redirecionar, e seria legal que fosse pra uma página mais inicial, não a de perfil, mas vou deixar a de perfil por enquanto pq ela tá feita*/}
+                <TouchableOpacity onPress={()=> router.push('/perfil')}>
+                <View className="flex flex-row gap-5 justify-center items-center">
+                {/*cancelar*/}
+                <View className="flex w-[35%] px-1 py-2 justify-center items-center bg-indigo-300 text-black font-normal border border-r-2 border-white rounded-xl">
+                <TouchableOpacity
+                onPress={()=> router.push("/alterar-senha")}>Cancelar</TouchableOpacity>
+                </View>
+                {/*confirmar*/}
+                <View className="flex w-[35%] px-1 py-2 justify-center items-center bg-indigo-600 text-white font-normal border border-r-2 border-white rounded-xl">
+                <TouchableOpacity
+                onPress={()=> router.push("/perfil")}>Confirmar</TouchableOpacity>
+                </View>
+        </View>
+                </TouchableOpacity>
             </View>
-
-
-
-
         </View>
     )
 }

@@ -2,11 +2,17 @@ import { View } from "react-native";
 import { Image } from "react-native";
 import { Text } from "react-native";
 import { TouchableOpacity } from "react-native";
+import { useRouter } from "expo-router";
+
+// o único redirecionamento aqui é pra tela de criar convênio, que ainda não foi criada, então vou esperar pra ver a estrutura de qm for fazer pra codar esse redirecionamento e nn atrapalhar, quer dizer, isso além do redirecionamento da header, que eu vou fazer 
 
 export default function dadosCadastro(){
+    const router = useRouter()
     return(
         <View style={{flex:1}}>
+            <TouchableOpacity onPress={()=> router.push("/(perfil)/perfil")}>
             <Image style={{width:140, height:60, marginTop:20, marginLeft:20}} resizeMode="contain" source={require('../../../../assets/images/DadosCadastroApp.png')}></Image>
+            </TouchableOpacity>
             <View className="w-full h-0.5 bg-gray-300 mt-1"></View>
             {/* a parte da imagem de perfil vai ficar aqui em baixo */}
             <View className="flex justify-center items-center mt-10 -ml-2">
