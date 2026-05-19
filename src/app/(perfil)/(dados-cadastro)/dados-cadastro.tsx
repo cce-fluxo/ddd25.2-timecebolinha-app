@@ -1,7 +1,6 @@
 import { View } from "react-native";
 import { Image } from "react-native";
 import { Text } from "react-native";
-import { Button } from "react-native";
 import { TouchableOpacity } from "react-native";
 
 export default function dadosCadastro(){
@@ -94,7 +93,7 @@ export default function dadosCadastro(){
             </View>
                 <Text className="mt-5 ml-8 text-indigo-700">Convênio Médico</Text>
 
-                <View className="flex flex-col justify-start ml-3 mt-3.5 mx-4 items-stretch border border-gray-400 rounded-xl">
+                <View className="flex flex-col overflow-hidden justify-start ml-3 mt-3.5 mx-4 items-stretch border border-gray-400 rounded-xl"> {/* esse overflow-hidden coloca o backgorund dentro da caixinha dele */}
                 <View className="-ml-4 -mt-2" style={{flex:1}}>
                 <Text className="w-15 text-black ml-8 mt-2">Amil</Text>
                 <Text className="w-15 ml-8 text-gray-500 text-sm">00/00/00</Text>
@@ -105,10 +104,10 @@ export default function dadosCadastro(){
                     source={require('../../../../assets/images/BotaoDeEditar.png')} />
                     </View>
                     <View className="w-[94%] ml-5 h-0.5 bg-indigo-500"></View>
-                    <View className="flex px-3 py-5 h-2 justify-center items-center text-indigo-700 gap-2 self-stretch bg-white">
+                    <View className="flex px-3 py-5 h-2 w-full justify-center items-center text-indigo-700 gap-2 self-stretch bg-white border border-indigo-500">
                         <TouchableOpacity
                         onPress={()=> console.log('clicou')}
-                        className="bg-white px-4 py-2 rounded-lg">
+                        className="bg-white w-[80%] ml-2 px-4 py-2 rounded-lg">
                             <Text className="text-indigo-500 font-bold text-center">Adicionar Convênio</Text>
                         </TouchableOpacity>
                     </View>
