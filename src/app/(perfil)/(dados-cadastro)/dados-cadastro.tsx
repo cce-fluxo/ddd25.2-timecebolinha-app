@@ -29,7 +29,9 @@ export default function dadosCadastro(){
                 
                 {/* imagem alinhada e na direita , aka botao de editar */}
                 <View className="flex flex-row justify-end mr-1 -mt-15">
+                    <TouchableOpacity onPress={()=> console.log('clicou')}>
                     <Image style={{width:25 , height:25, alignSelf:'flex-end'}} resizeMode="contain" source={require('../../../../assets/images/BotaoDeEditar.png')}></Image>
+                    </TouchableOpacity>
                 </View>
                 </View>
 
@@ -45,7 +47,9 @@ export default function dadosCadastro(){
                 
                 {/* imagem alinhada e na direita , aka botao de editar */}
                 <View className="flex flex-row justify-end mr-1 -mt-15">
+                    <TouchableOpacity onPress={()=> console.log('clicou')}>
                     <Image style={{width:25 , height:25, alignSelf:'flex-end'}} resizeMode="contain" source={require('../../../../assets/images/BotaoDeEditar.png')}></Image>
+                    </TouchableOpacity>
                 </View>
                 </View>
 
@@ -59,7 +63,9 @@ export default function dadosCadastro(){
                 
                 {/* imagem alinhada e na direita , aka botao de editar */}
                 <View className="flex flex-row justify-end mr-1 -mt-15">
+                    <TouchableOpacity onPress={()=> console.log('clicou')}>
                     <Image style={{width:25 , height:25, alignSelf:'flex-end'}} resizeMode="contain" source={require('../../../../assets/images/BotaoDeEditar.png')}></Image>
+                    </TouchableOpacity>
                 </View>
                 </View>
 
@@ -73,7 +79,9 @@ export default function dadosCadastro(){
                 
                 {/* imagem alinhada e na direita , aka botao de editar */}
                 <View className="flex flex-row justify-end mr-1 -mt-15">
+                    <TouchableOpacity onPress={()=> console.log('clicou')}>
                     <Image style={{width:25 , height:25, alignSelf:'flex-end'}} resizeMode="contain" source={require('../../../../assets/images/BotaoDeEditar.png')}></Image>
+                    </TouchableOpacity>
                 </View>
                 </View>
 
@@ -87,7 +95,9 @@ export default function dadosCadastro(){
                 
                 {/* imagem alinhada e na direita , aka botao de editar */}
                 <View className="flex flex-row justify-end mr-1 -mt-15">
+                    <TouchableOpacity onPress={()=> console.log('clicou')}>
                     <Image style={{width:25 , height:25, alignSelf:'flex-end'}} resizeMode="contain" source={require('../../../../assets/images/BotaoDeEditar.png')}></Image>
+                    </TouchableOpacity>
                 </View>
                 </View>
             </View>
