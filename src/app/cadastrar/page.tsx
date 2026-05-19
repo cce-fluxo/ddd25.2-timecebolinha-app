@@ -77,8 +77,10 @@ const initialValues = {
 
 export default function RegisterScreen() {
     const router = useRouter();
+    const [erroServidor, setErroServidor] = React.useState('')
+
     async function handleSubmit(values: typeof initialValues) {
-        console.log('Dados do cadastro:', values);
+        setErroServidor('')
         try {
             await criarPaciente({
                 rg: values.rg,
@@ -92,10 +94,11 @@ export default function RegisterScreen() {
                     data_nascimento: `${values.ano}-${values.mes}-${values.dia}`,
                 }
             });
-        } catch (error) {
-            console.error('Erro ao criar paciente:', error);
+            router.push('/');
+        } catch (error: any) {
+            const msg = error?.message ?? 'Erro ao criar conta. Tente novamente.'
+            setErroServidor(msg)
         }
-        router.push('/');
     }
 
     return (
@@ -274,6 +277,8 @@ export default function RegisterScreen() {
                     isPassword
                     returnKeyType="done"
                     />
+
+                    {erroServidor ? <Text className="text-red-500 text-sm mt-2">{erroServidor}</Text> : null}
 
                     {/*Botões Criar Conta e Voltar*/}
                     <View className="flex-1 w-full flex-row gap-4 mt-6">

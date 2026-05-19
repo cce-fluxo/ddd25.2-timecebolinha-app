@@ -1,4 +1,4 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as SecureStore from 'expo-secure-store';
 import axios from 'axios';
 
 const api = axios.create({
@@ -7,7 +7,7 @@ const api = axios.create({
 
 // Interceptor de REQUEST: injeta o token JWT em toda requisição autenticada
 api.interceptors.request.use(async (config) => {
-  const token = await AsyncStorage.getItem('access_token')
+  const token = await SecureStore.getItemAsync('access_token')
   if (token) {
     config.headers.Authorization = `Bearer ${token}`
   }
@@ -46,8 +46,27 @@ export async function criarPaciente(payload: PacientePayload) {
 
 export async function login(email: string, senha_usuario: string) {
   const { data } = await api.post<{ access_token: string }>('/auth/login', {
-    email: email,
+    email_usuario: email,
     senha_usuario: senha_usuario,
   })
+  return data
+}
+
+export interface Paciente {
+    id: number;
+    rg: string;
+    usuario: {
+        id: number;
+        no_usuario: string;
+        email_usuario: string;
+        cpf: string;
+        nu_celular: string;
+        genero: 'Masculino' | 'Feminino' | 'Outros' | 'NaoInformado';
+        data_nascimento: string;
+    }
+}
+
+export async function getMe(idUsuario: number) {
+  const { data } = await api.get<Paciente>(`/paciente/usuario/${idUsuario}`)
   return data
 }
