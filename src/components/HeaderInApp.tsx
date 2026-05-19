@@ -23,5 +23,3 @@ export default function HeaderInApp(){
         </View>
     )
 }
-
-// header de quando o usuário ta logado feita
