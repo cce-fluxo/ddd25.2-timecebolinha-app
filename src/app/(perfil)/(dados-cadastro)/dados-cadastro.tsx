@@ -93,7 +93,8 @@ export default function dadosCadastro(){
             </View>
                 <Text className="mt-5 ml-8 text-indigo-700">Convênio Médico</Text>
 
-                <View className="flex flex-col overflow-hidden justify-start ml-3 mt-3.5 mx-4 items-stretch border border-gray-400 rounded-xl"> {/* esse overflow-hidden coloca o backgorund dentro da caixinha dele */}
+                <View className="flex flex-col overflow-hidden justify-start ml-3 mt-3.5 mx-4 items-stretch border border-gray-400 rounded-xl"> 
+                    {/* esse overflow-hidden coloca o backgorund dentro da caixinha dele */}
                 <View className="-ml-4 -mt-2" style={{flex:1}}>
                 <Text className="w-15 text-black ml-8 mt-2">Amil</Text>
                 <Text className="w-15 ml-8 text-gray-500 text-sm">00/00/00</Text>

@@ -17,7 +17,7 @@ export default function InputBox(props: InputBoxProps) {
   const isEmail = props.tipo === "email";
 
   return (
-    <View className="w-full flex-row items-center border border-gray-500 rounded-lg px-4 py-3">
+    <View className="w-full flex-row items-center border border-gray-500 rounded-lg px-4 py-2">
       <TextInput
         className="flex-1 text-base text-black"
         placeholder={props.placeholder}
