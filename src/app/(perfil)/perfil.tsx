@@ -1,10 +1,12 @@
 import { View } from "react-native";
 import { Text } from "react-native"; // sempre trazer os caras do react-native, nao do outro lá, pra funcionar o tailwind
 import { Image } from "react-native";
+import HeaderInApp from '../../components/HeaderInApp';
 
 export default function Perfil(){
     return(
         <View >
+            <HeaderInApp></HeaderInApp>
             <View className="flex flex-row mt-12 px-6 items-center gap-4">
                 <Image style={{height:48, width:48}} resizeMode="contain" source={require('../../../assets/images/Will.png')}></Image>
                 <View className="flex flex-row justify-end gap-2">
