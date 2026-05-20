@@ -1,6 +1,6 @@
-import * as SecureStore from "expo-secure-store";
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 import { getMe, login as loginApi, Paciente } from "../lib/api";
+import { storage } from '../utils/storage';
 
 function decodeJwt(token: string): { id: number; email: string } {
   const payload = token.split(".")[1]
@@ -31,7 +31,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     async function verificarToken() {
       try {
-        const tokenSalvo = await SecureStore.getItemAsync("access_token") // async, diferente do SW
+        const tokenSalvo = await storage.getItem("access_token")
         if (!tokenSalvo) return
 
         const { id } = decodeJwt(tokenSalvo)
@@ -39,7 +39,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         const dadosUsuario = await getMe(id)
         setUsuario(dadosUsuario)
       } catch {
-        await SecureStore.deleteItemAsync("access_token") // token inválido/expirado
+        await storage.deleteItem("access_token") // token inválido/expirado
       } finally {
         setCarregando(false)
       }
@@ -49,7 +49,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   async function login(email: string, senha: string) {
     const { access_token } = await loginApi(email, senha)
-    await SecureStore.setItemAsync("access_token", access_token)
+    await storage.setItem("access_token", access_token)
     const { id } = decodeJwt(access_token)
     const dadosUsuario = await getMe(id)
     setToken(access_token)
@@ -57,7 +57,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   async function logout() {
-    await SecureStore.deleteItemAsync("access_token")
+    await storage.deleteItem("access_token")
     setToken(null)
     setUsuario(null)
   }
