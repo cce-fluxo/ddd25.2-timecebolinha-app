@@ -3,7 +3,7 @@ import HeaderInApp from "../../components/HeaderInApp"
 
 export default function Home() {
     return (
-        <View className="flex-1 items-center justify-center bg-white">
+        <View className="w-full flex-1 items-center justify-center bg-white">
             <HeaderInApp></HeaderInApp>
             <Text className="text-2xl font-bold">Homeeeeeeeeeeee</Text>
         </View>
