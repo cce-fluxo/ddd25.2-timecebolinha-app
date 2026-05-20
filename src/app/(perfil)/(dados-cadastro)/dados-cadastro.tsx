@@ -2,11 +2,17 @@ import { View } from "react-native";
 import { Image } from "react-native";
 import { Text } from "react-native";
 import { TouchableOpacity } from "react-native";
+import { useRouter } from "expo-router";
+
+// o único redirecionamento aqui é pra tela de criar convênio, que ainda não foi criada, então vou esperar pra ver a estrutura de qm for fazer pra codar esse redirecionamento e nn atrapalhar, quer dizer, isso além do redirecionamento da header, que eu vou fazer 
 
 export default function dadosCadastro(){
+    const router = useRouter()
     return(
         <View style={{flex:1}}>
+            <TouchableOpacity onPress={()=> router.push("/(perfil)/perfil")}>
             <Image style={{width:140, height:60, marginTop:20, marginLeft:20}} resizeMode="contain" source={require('../../../../assets/images/DadosCadastroApp.png')}></Image>
+            </TouchableOpacity>
             <View className="w-full h-0.5 bg-gray-300 mt-1"></View>
             {/* a parte da imagem de perfil vai ficar aqui em baixo */}
             <View className="flex justify-center items-center mt-10 -ml-2">
@@ -29,7 +35,9 @@ export default function dadosCadastro(){
                 
                 {/* imagem alinhada e na direita , aka botao de editar */}
                 <View className="flex flex-row justify-end mr-1 -mt-15">
+                    <TouchableOpacity onPress={()=> console.log('clicou')}>
                     <Image style={{width:25 , height:25, alignSelf:'flex-end'}} resizeMode="contain" source={require('../../../../assets/images/BotaoDeEditar.png')}></Image>
+                    </TouchableOpacity>
                 </View>
                 </View>
 
@@ -45,7 +53,9 @@ export default function dadosCadastro(){
                 
                 {/* imagem alinhada e na direita , aka botao de editar */}
                 <View className="flex flex-row justify-end mr-1 -mt-15">
+                    <TouchableOpacity onPress={()=> console.log('clicou')}>
                     <Image style={{width:25 , height:25, alignSelf:'flex-end'}} resizeMode="contain" source={require('../../../../assets/images/BotaoDeEditar.png')}></Image>
+                    </TouchableOpacity>
                 </View>
                 </View>
 
@@ -59,7 +69,9 @@ export default function dadosCadastro(){
                 
                 {/* imagem alinhada e na direita , aka botao de editar */}
                 <View className="flex flex-row justify-end mr-1 -mt-15">
+                    <TouchableOpacity onPress={()=> console.log('clicou')}>
                     <Image style={{width:25 , height:25, alignSelf:'flex-end'}} resizeMode="contain" source={require('../../../../assets/images/BotaoDeEditar.png')}></Image>
+                    </TouchableOpacity>
                 </View>
                 </View>
 
@@ -73,7 +85,9 @@ export default function dadosCadastro(){
                 
                 {/* imagem alinhada e na direita , aka botao de editar */}
                 <View className="flex flex-row justify-end mr-1 -mt-15">
+                    <TouchableOpacity onPress={()=> console.log('clicou')}>
                     <Image style={{width:25 , height:25, alignSelf:'flex-end'}} resizeMode="contain" source={require('../../../../assets/images/BotaoDeEditar.png')}></Image>
+                    </TouchableOpacity>
                 </View>
                 </View>
 
@@ -87,13 +101,16 @@ export default function dadosCadastro(){
                 
                 {/* imagem alinhada e na direita , aka botao de editar */}
                 <View className="flex flex-row justify-end mr-1 -mt-15">
+                    <TouchableOpacity onPress={()=> console.log('clicou')}>
                     <Image style={{width:25 , height:25, alignSelf:'flex-end'}} resizeMode="contain" source={require('../../../../assets/images/BotaoDeEditar.png')}></Image>
+                    </TouchableOpacity>
                 </View>
                 </View>
             </View>
                 <Text className="mt-5 ml-8 text-indigo-700">Convênio Médico</Text>
 
-                <View className="flex flex-col overflow-hidden justify-start ml-3 mt-3.5 mx-4 items-stretch border border-gray-400 rounded-xl"> {/* esse overflow-hidden coloca o backgorund dentro da caixinha dele */}
+                <View className="flex flex-col overflow-hidden justify-start ml-3 mt-3.5 mx-4 items-stretch border border-gray-400 rounded-xl"> 
+                    {/* esse overflow-hidden coloca o backgorund dentro da caixinha dele */}
                 <View className="-ml-4 -mt-2" style={{flex:1}}>
                 <Text className="w-15 text-black ml-8 mt-2">Amil</Text>
                 <Text className="w-15 ml-8 text-gray-500 text-sm">00/00/00</Text>
