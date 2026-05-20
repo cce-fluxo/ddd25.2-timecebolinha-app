@@ -51,3 +51,4 @@ export async function login(email: string, senha_usuario: string) {
   })
   return data
 }
+
