@@ -7,6 +7,7 @@ import BotaoPadrao from '../../components/BotaoPadrao';
 import HeaderLogin from '../../components/HeaderLogin';
 import { InputBar } from '../../components/InputsCadastro';
 import { criarPaciente } from '../../lib/api';
+import * as path from 'node:path';
 
 const registerSchema = Yup.object().shape({
 
@@ -286,7 +287,21 @@ export default function RegisterScreen() {
                             <BotaoPadrao texto="Voltar" tipo={3} onPress={() => router.push('/')}></BotaoPadrao>
                         </View>
                         <View className='flex-1'>
-                            <BotaoPadrao texto="Criar Conta" tipo={1} onPress={formikSubmit}></BotaoPadrao>
+                            <BotaoPadrao texto="Criar Conta" tipo={1} onPress={()=>{
+                                formikSubmit();
+                                console.log('clicou');
+                                router.push({
+                                    pathname:'/(perfil)/(dados-cadastro)/dados-cadastro',
+                                    params:{
+                                    nome:`${values.nome} ${values.sobrenome}`,
+                                    email: values.email,
+                                    celular: values.celular,
+                                    cpf: values.cpf,
+                                    nascimento: `${values.dia}/ ${values.mes}/ ${values.ano}`
+                                    // pegar os dados aqui pra colocar no dados-cadastro e aparecer na tela
+                                    }
+                                })
+                            }}></BotaoPadrao>
                         </View>                    
                     </View>
                 </View>
@@ -294,6 +309,6 @@ export default function RegisterScreen() {
             </Formik>
             </ScrollView>
         </ScrollView>
-        
+        //onPress={formikSubmit}     
     );
 }

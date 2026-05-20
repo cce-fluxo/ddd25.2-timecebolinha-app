@@ -15,6 +15,8 @@ export default function AlterarSenha(){
             <View className="w-full h-0.5 bg-gray-300 mt-1"></View>
             </TouchableOpacity>
         </View>
+
+        
             {/* Alterar senha */}
             <View className='flex'>
                 <Text className='flex mt-7 ml-8 text-indigo-700 text-base font-lato-regular'>Alterar Senha</Text>

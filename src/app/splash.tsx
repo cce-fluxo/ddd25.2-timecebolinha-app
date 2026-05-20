@@ -12,7 +12,7 @@ export default function splashScreen(){
     }, []);
 
     return(
-        <View style={{flex:1}}>
+        <View className="flex h-[100vh]">
             <LottieView source={require("@/assets/animations/Splash.json")} 
                         autoPlay
                         loop={false}

@@ -45,28 +45,26 @@ export async function criarPaciente(payload: PacientePayload) {
 }
 
 export async function login(email: string, senha_usuario: string) {
-  const { data } = await api.post<{ access_token: string }>('/auth/login', {
-    email_usuario: email,
+  const { data } = await api.post<{ access_token: string ; id:number }>('/auth/login', {
+    email: email,
     senha_usuario: senha_usuario,
   })
   return data
 }
 
-export interface Paciente {
-    id: number;
-    rg: string;
-    usuario: {
-        id: number;
-        no_usuario: string;
-        email_usuario: string;
-        cpf: string;
-        nu_celular: string;
-        genero: 'Masculino' | 'Feminino' | 'Outros' | 'NaoInformado';
-        data_nascimento: string;
-    }
-}
-
-export async function getMe(idUsuario: number) {
-  const { data } = await api.get<Paciente>(`/paciente/usuario/${idUsuario}`)
+export async function getUsuario(id:number){
+  const {data} = await api.get(`/usuarios/unico/${id}`)
   return data
 }
+
+export async function atualizarUsuario(id:number, dados:{
+  no_usuario?: string
+  email_usuario?: string
+  nu_celular?: string
+  cpf?: string
+  dt_nascimento?: string
+}){
+  const {data} = await api.patch(`/usuarios/unico/editar/${id}`, dados)
+  return data
+}
+
