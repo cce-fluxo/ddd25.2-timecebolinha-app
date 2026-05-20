@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import { Image } from "react-native";
 import { Text } from "@react-navigation/elements";
 
@@ -8,7 +8,9 @@ export default function HeaderInApp(){
             {/* parte de cima da header */}
         <View className="flex flex-row  w-110 h-23 px-6 py-6 justify-between items-center">
             <Image style={{width:100, height:30}} resizeMode="contain" source={require('../../assets/images/SorriSyncLogo.png')}></Image>
+            <TouchableOpacity onPress={()=> console.log('clicou')}>
             <Image resizeMode="contain" source={require('../../assets/images/SinoNoti.png')}></Image>
+            </TouchableOpacity>
 
         </View>
             {/* parte de baixo da header*/}
@@ -23,5 +25,3 @@ export default function HeaderInApp(){
         </View>
     )
 }
-
-// header de quando o usuário ta logado feita

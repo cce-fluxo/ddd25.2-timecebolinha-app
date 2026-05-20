@@ -7,7 +7,7 @@ export default function splashScreen(){
     useEffect(() => {
         const timer = setTimeout(()=> {
             router.replace("/login")
-        }, 8500);
+        }, 9000);
         return ()=> clearTimeout(timer)
     }, []);
 
@@ -19,7 +19,7 @@ export default function splashScreen(){
                         style={{flex:1}}
                         renderMode="HARDWARE"
                         cacheComposition={true}
-                        speed={1}>  
+                        speed={0.9}>  
                         </LottieView>
         </View>
     )
