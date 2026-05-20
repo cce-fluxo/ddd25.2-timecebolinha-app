@@ -45,10 +45,26 @@ export async function criarPaciente(payload: PacientePayload) {
 }
 
 export async function login(email: string, senha_usuario: string) {
-  const { data } = await api.post<{ access_token: string }>('/auth/login', {
+  const { data } = await api.post<{ access_token: string ; id:number }>('/auth/login', {
     email: email,
     senha_usuario: senha_usuario,
   })
+  return data
+}
+
+export async function getUsuario(id:number){
+  const {data} = await api.get(`/usuarios/unico/${id}`)
+  return data
+}
+
+export async function atualizarUsuario(id:number, dados:{
+  no_usuario?: string
+  email_usuario?: string
+  nu_celular?: string
+  cpf?: string
+  dt_nascimento?: string
+}){
+  const {data} = await api.patch(`/usuarios/unico/editar/${id}`, dados)
   return data
 }
 

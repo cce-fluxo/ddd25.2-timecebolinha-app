@@ -3,18 +3,43 @@ import { Text } from "react-native"; // sempre trazer os caras do react-native, 
 import { Image } from "react-native";
 import { TouchableOpacity } from "react-native";
 import HeaderInApp from "@/src/components/HeaderInApp";
-import { useRouter } from "expo-router";
+import {useRouter } from "expo-router";
+import { useState, useEffect } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { getUsuario } from "@/src/lib/api";
 
 export default function Perfil(){
     const router = useRouter()
+    const [usuario, setUsuario] = useState<any>(null)
+    
+    useEffect(()=>{
+        async function carregarUsuario() {
+            const id = await AsyncStorage.getItem('id_usuario')
+            if(!id) return
+            const dados = await getUsuario(Number(id))
+            setUsuario(dados)
+        }
+        carregarUsuario()
+    },[])
     return(
         <View >
             <HeaderInApp></HeaderInApp>
             <View className="flex flex-row mt-12 px-6 items-center gap-4">
                 <Image style={{height:48, width:48}} resizeMode="contain" source={require('../../../assets/images/Will.png')}></Image>
                 <View className="flex flex-row justify-end gap-2">
-                <Text className="text-lg text-black font-lato-bold">Will Smith</Text>
-                <TouchableOpacity onPress={()=> router.push("/(perfil)/(dados-cadastro)/dados-cadastro")}>
+                <Text className="text-lg text-black font-lato-bold">{usuario?.no_usuario}</Text>
+                <TouchableOpacity onPress={() =>{
+                    router.push({
+                        pathname: '/(perfil)/(dados-cadastro)/dados-cadastro',
+                        params:{
+                            id:  usuario?.id,
+                            nome: usuario?.no_usuario,
+                            email: usuario?.email_usuario,
+                            celular: usuario?.nu_celular,
+                            cpf: usuario?.cpf,
+                            nascimento: usuario?.data_nascimento
+                        }
+                    })}}>
                 <Image style={{height:20, width:20, marginTop:5}} resizeMode="contain" source={require('../../../assets/images/BotaoDeEditar.png')}></Image>
                 </TouchableOpacity>
                 </View>

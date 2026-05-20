@@ -5,7 +5,7 @@ import { TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
 import { useLocalSearchParams } from "expo-router";
 import { useState } from "react";
-import { string } from 'yup';
+import { atualizarUsuario } from "@/src/lib/api";
 
 // o único redirecionamento aqui é pra tela de criar convênio, que ainda não foi criada, então vou esperar pra ver a estrutura de qm for fazer pra codar esse redirecionamento e nn atrapalhar, quer dizer, isso além do redirecionamento da header, que eu vou fazer 
 
@@ -46,10 +46,15 @@ export default function dadosCadastro(){
                 <View className="flex flex-row items-center h-14 px-4">
                     <View className="gap-1.5 -ml-4 -mt-2" style={{flex:1}}>
                 <Text className="w-15 text-gray-500 ml-4 mt-2">Nome completo</Text>
-                <Text className="ml-4">{nome}</Text>
                 {editandoNome
                 ? <TextInput className="ml-4 border-b border-indigo-400" value={nome} 
-                    onChangeText={setNome} onBlur={() => setEditandoNome(false)} autoFocus />
+                    onChangeText={setNome} onBlur={async () => 
+                        {
+                            setEditandoNome(false)
+                            await atualizarUsuario(Number(params.id), {no_usuario:nome})
+                        }
+                        
+                } autoFocus />
                     : <Text className="ml-4">{nome}</Text>
                           }
                     </View>
@@ -69,10 +74,12 @@ export default function dadosCadastro(){
                 <View className="flex flex-row items-center h-14 px-4">
                     <View className="gap-1.5 -ml-4 -mt-2" style={{flex:1}}>
                 <Text className="w-15 text-gray-500 ml-4 mt-2">Email</Text>
-                <Text className="ml-4">{email}</Text>
                 {editandoEmail
                     ? <TextInput className="ml-4 border-b border-indigo-400" value={email} 
-                    onChangeText={setEmail} onBlur={() => setEditandoEmail(false)} autoFocus keyboardType="email-address"
+                    onChangeText={setEmail} onBlur={async () => {
+                        setEditandoEmail(false);
+                        await atualizarUsuario(Number(params.id) , {email_usuario: email})
+                    }} autoFocus keyboardType="email-address"
                     autoCapitalize="none" />
                               : <Text className="ml-4">{email}</Text>
                           }
@@ -80,7 +87,7 @@ export default function dadosCadastro(){
                 
                 {/* imagem alinhada e na direita , aka botao de editar */}
                 <View className="flex flex-row justify-end mr-1 -mt-15">
-                    <TouchableOpacity onPress={()=> setEditandoEmail(false)}>
+                    <TouchableOpacity onPress={()=> setEditandoEmail(true)}>
                     <Image style={{width:25 , height:25, alignSelf:'flex-end'}} resizeMode="contain" source={require('../../../../assets/images/BotaoDeEditar.png')}></Image>
                     </TouchableOpacity>
                 </View>
@@ -93,9 +100,11 @@ export default function dadosCadastro(){
                 <View className="flex flex-row items-center h-14 px-4">
                     <View className="gap-1.5 -ml-4 -mt-2" style={{flex:1}}>
                 <Text className="w-15 text-gray-500 ml-4 mt-2">Data de nascimento</Text>
-                <Text className="ml-4">{nascimento}</Text>
                 {editandoNascimento
-                ? <TextInput className="ml-4 border-b border-indigo-400" value={nascimento} onChangeText={setNascimento} onBlur={() => setEditandoNascimento(false)} autoFocus keyboardType="numeric" />
+                ? <TextInput className="ml-4 border-b border-indigo-400" value={nascimento} onChangeText={setNascimento} onBlur={async() => {
+                    setEditandoNascimento(false);
+                    await atualizarUsuario(Number(params.id), {dt_nascimento: nascimento})
+                }} autoFocus keyboardType="numeric" />
                     : <Text className="ml-4">{nascimento}</Text>
             }
                     </View>
@@ -113,9 +122,11 @@ export default function dadosCadastro(){
                 <View className="flex flex-row items-center h-14 px-4">
                     <View className="gap-1.5 -ml-4 -mt-2" style={{flex:1}}>
                 <Text className="w-15 text-gray-500 ml-4 mt-2">Número de celular</Text>
-                <Text className="ml-4">{celular}</Text>
                 {editandoCelular
-                ? <TextInput className="ml-4 border-b border-indigo-400" value={celular} onChangeText={setCelular} onBlur={()=> setEditandoCelular(false)} autoFocus keyboardType="phone-pad" />
+                ? <TextInput className="ml-4 border-b border-indigo-400" value={celular} onChangeText={setCelular} onBlur={async()=>{
+                    setEditandoCelular(false);
+                    await atualizarUsuario(Number(params.id), {nu_celular: celular})
+                }} autoFocus keyboardType="phone-pad" />
                 : <Text className="ml-4">{celular}</Text>
             }
                     </View>
@@ -135,10 +146,12 @@ export default function dadosCadastro(){
                 <View className="flex flex-row items-center h-14 px-4">
                     <View className="gap-1.5 -ml-4 -mt-2" style={{flex:1}}>
                 <Text className="w-15 text-gray-500 ml-4 mt-2">CPF</Text>
-                <Text className="ml-4">{cpf}</Text>
                 {editandoCpf
                               ? <TextInput className="ml-4 border-b border-indigo-400" value={cpf} 
-                            onChangeText={setCpf} onBlur={() => setEditandoCpf(false)} autoFocus keyboardType="numeric" />
+                            onChangeText={setCpf} onBlur={async() => {
+                                setEditandoCpf(false);
+                                await atualizarUsuario(Number(params.id), {cpf:cpf})
+                            }} autoFocus keyboardType="numeric" />
                               : <Text className="ml-4">{cpf}</Text>
                           }
                     </View>

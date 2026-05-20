@@ -2,7 +2,7 @@ import { useRouter } from "expo-router";
 import { Text, TouchableOpacity, View } from "react-native";
 import BotaoPadrao from "@/src/components/BotaoPadrao";
 import HeaderLogin from "@/src/components/HeaderLogin";
-import InputBox from "@/src/components/InputBox";
+import InputBox from "@/src/components/InputBox"
 
 export default function Index() {
   const router = useRouter();
