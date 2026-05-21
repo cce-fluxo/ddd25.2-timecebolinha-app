@@ -67,4 +67,3 @@ export async function atualizarUsuario(id:number, dados:{
   const {data} = await api.patch(`/usuarios/unico/editar/${id}`, dados)
   return data
 }
-
