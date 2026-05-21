@@ -4,8 +4,6 @@ import { Image } from "react-native";
 import HeaderInApp from '../../components/HeaderInApp';
 import { useRouter } from "expo-router";
 import { TouchableOpacity } from "react-native";
-import HeaderInApp from "@/src/components/HeaderInApp";
-import {useRouter } from "expo-router";
 import { useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getUsuario } from "@/src/lib/api";
