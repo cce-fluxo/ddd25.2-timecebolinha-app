@@ -39,6 +39,16 @@ export interface PacientePayload {
     }
 }
 
+export interface Paciente{
+  id:number
+  no_usuario: string
+  email_usuario: string
+  nu_celular: string
+  cpf:string
+  data_nascimento: string
+  genero: string
+}
+
 export async function criarPaciente(payload: PacientePayload) {
     const { data } = await api.post('/paciente', payload);
     return data;
@@ -46,13 +56,13 @@ export async function criarPaciente(payload: PacientePayload) {
 
 export async function login(email: string, senha_usuario: string) {
   const { data } = await api.post<{ access_token: string ; id:number }>('/auth/login', {
-    email: email,
+    email_usuario: email, // Tinha que chamar "email_usuario" , não email
     senha_usuario: senha_usuario,
   })
   return data
 }
 
-export async function getUsuario(id:number){
+export async function getMe(id:number){
   const {data} = await api.get(`/usuarios/unico/${id}`)
   return data
 }

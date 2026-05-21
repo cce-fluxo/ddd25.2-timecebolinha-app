@@ -95,7 +95,7 @@ export default function RegisterScreen() {
                     data_nascimento: `${values.ano}-${values.mes}-${values.dia}`,
                 }
             });
-            router.push('/');
+            router.push('/login');
         } catch (error: any) {
             const msg = error?.message ?? 'Erro ao criar conta. Tente novamente.'
             setErroServidor(msg)
@@ -290,17 +290,6 @@ export default function RegisterScreen() {
                             <BotaoPadrao texto="Criar Conta" tipo={1} onPress={()=>{
                                 formikSubmit();
                                 console.log('clicou');
-                                router.push({
-                                    pathname:'/(perfil)/(dados-cadastro)/dados-cadastro',
-                                    params:{
-                                    nome:`${values.nome} ${values.sobrenome}`,
-                                    email: values.email,
-                                    celular: values.celular,
-                                    cpf: values.cpf,
-                                    nascimento: `${values.dia}/ ${values.mes}/ ${values.ano}`
-                                    // pegar os dados aqui pra colocar no dados-cadastro e aparecer na tela
-                                    }
-                                })
                             }}></BotaoPadrao>
                         </View>                    
                     </View>

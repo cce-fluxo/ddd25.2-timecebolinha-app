@@ -4,11 +4,9 @@ import { Image } from "react-native";
 import HeaderInApp from '../../components/HeaderInApp';
 import { useRouter } from "expo-router";
 import { TouchableOpacity } from "react-native";
-import HeaderInApp from "@/src/components/HeaderInApp";
-import {useRouter } from "expo-router";
 import { useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { getUsuario } from "@/src/lib/api";
+import { getMe } from "@/src/lib/api";
 
 export default function Perfil(){
     const router = useRouter()
@@ -18,7 +16,7 @@ export default function Perfil(){
         async function carregarUsuario() {
             const id = await AsyncStorage.getItem('id_usuario')
             if(!id) return
-            const dados = await getUsuario(Number(id))
+            const dados = await getMe(Number(id))
             setUsuario(dados)
         }
         carregarUsuario()
