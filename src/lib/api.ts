@@ -1,9 +1,21 @@
 import axios from 'axios';
 import { storage } from '../utils/storage';
+import Constants from 'expo-constants'
+
+// em dev, ele vai pegar o IP do servidor Expo automaticamente
+
+const getBaseUrl = ()=> {
+  const host = Constants.expoConfig?.hostUri?.split(':')[0];
+  if(host) return `http://${host}:3100`;
+  //fallback pra web/produção
+  return process.env.EXPO_PUBLIC_BASE_URL ?? 'http://localhost:3100';
+}
 
 const api = axios.create({
-    baseURL: process.env.EXPO_PUBLIC_BASE_URL,
+    baseURL: getBaseUrl(),
 });
+
+// essa parte ai de cima basicamente é pra fazer o IP deixar de ser hardcoded e o app funcionar em qualquer IP
 
 // Interceptor de REQUEST: injeta o token JWT em toda requisição autenticada
 api.interceptors.request.use(async (config) => {
