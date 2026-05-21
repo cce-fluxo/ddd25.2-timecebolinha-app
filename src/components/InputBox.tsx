@@ -30,7 +30,7 @@ export default function InputBox(props: InputBoxProps) {
       />
       {isPassword && (
         <TouchableOpacity onPress={() => setMostrarSenha((prev) => !prev)}>
-            <Feather name={mostrarSenha ? "eye-off" : "eye"} size={12} color="#9CA3AF" className="ml-2" />
+            <Feather name={mostrarSenha ? "eye-off" : "eye"} size={6} color="#9CA3AF" className="ml-2" />
         </TouchableOpacity>
       )}
     </View>
