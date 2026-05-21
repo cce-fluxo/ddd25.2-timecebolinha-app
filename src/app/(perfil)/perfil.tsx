@@ -5,6 +5,8 @@ import { TouchableOpacity } from "react-native";
 import { useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getUsuario } from "@/src/lib/api";
+import HeaderInApp from "@/src/components/HeaderInApp";
+import { useRouter } from "expo-router";
 
 export default function Perfil(){
     const router = useRouter()
