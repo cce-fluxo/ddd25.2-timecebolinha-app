@@ -89,3 +89,9 @@ export async function atualizarUsuario(id:number, dados:{
   const {data} = await api.patch(`/usuarios/unico/editar/${id}`, dados)
   return data
 }
+
+// fazer funções referentes ao envio de um código pro email (o danilo já fez isso de enviar um código pra email no back, então vou só usar o que ele já fez)
+
+export const enviarCodigoEmail = (email_usuario : string) => api.post('/auth/esqueceu-senha', {email_usuario})
+
+
