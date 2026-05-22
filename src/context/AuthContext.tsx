@@ -33,7 +33,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       try {
         const tokenSalvo = await storage.getItem("access_token")
         if (!tokenSalvo) return
-
         setAuthToken(tokenSalvo)
         const { id } = decodeJwt(tokenSalvo)
         setToken(tokenSalvo)
