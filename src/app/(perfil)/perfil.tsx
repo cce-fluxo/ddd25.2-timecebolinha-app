@@ -1,13 +1,12 @@
 import { View } from "react-native";
 import { Text } from "react-native"; // sempre trazer os caras do react-native, nao do outro lá, pra funcionar o tailwind
 import { Image } from "react-native";
-import HeaderInApp from '../../components/HeaderInApp';
-import { useRouter } from "expo-router";
 import { TouchableOpacity } from "react-native";
 import { useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getMe } from "@/src/lib/api";
-
+import { useRouter } from 'expo-router';
+import HeaderInApp from '../../components/HeaderInApp';
 
 export default function Perfil(){
     const router = useRouter()
