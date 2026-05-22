@@ -3,13 +3,27 @@ import { Text } from "react-native";
 import { Image } from "react-native";
 import { TouchableOpacity } from "react-native";
 import InputBox from '../../../../components/InputBox';
-import BotaoDeContinuar from "@/src/components/BotaoDeContinuar";
 import { useRouter } from "expo-router";
+import { useState } from "react";
+import { useAuth } from "@/src/context/AuthContext";
 
 export default function EmailCadastrado(){
+    // fiz uma lógica de estados pra verificar um email que o usuário digita e também pra mostrar um erro caso o usuário cometa algum
     const router = useRouter()
+    const {usuario} = useAuth()
+    const [emailDigitado, setEmailDigitado] = useState("")
+    const [erro, setErro] = useState("")
+
+    function verificarEmail(){
+        if(emailDigitado.trim().toLowerCase() !== usuario?.email_usuario?.toLowerCase()){
+            setErro("O email informado não corresponde ao cadastrado")
+            return // isso verifica se o email digitado é igual ao cadastrado (email do usuário)
+        }
+        router.push('/codigo-email')
+    }
     return(
         <View>
+            
             {/* header */}
             <TouchableOpacity
             onPress={()=> router.push("/(perfil)/(alterar-senha)/alterar-senha")}>
@@ -31,18 +45,18 @@ export default function EmailCadastrado(){
 
             {/* caixa de input do email */}
             <View className="flex mt-4 w-[80%] ml-10 ">
-            <InputBox tipo="email" onChange={()=> console.log('clicou')} placeholder="Email"></InputBox>
+            <InputBox tipo="email" value={emailDigitado} onChange={(v)=> {setEmailDigitado(v); setErro("")}} placeholder="Email"></InputBox>
+            {erro ? <Text className="text-red-500 ml-10 mt-2">{erro}</Text> : null} 
             </View>
 
             </View>
             {/* botão de continuar */}
 
             <View style={{width: '50%', marginLeft:110, marginTop:40}}>
-            <TouchableOpacity onPress={()=> router.push('/codigo-email')}>
+            <TouchableOpacity onPress={verificarEmail}>
             <View style={{flex:1, width:'100%', borderRadius: 8}}>
             <View className="flex w-[50%] ml-5 px-1 py-2 justify-center items-center bg-indigo-600 text-white font-normal border border-r-2 border-white rounded-xl">
-            <TouchableOpacity
-            onPress={()=> router.push("/codigo-email")}>Continuar</TouchableOpacity>
+            <Text className="text-white">Continuar</Text>
             </View>
             </View>
             </TouchableOpacity>
