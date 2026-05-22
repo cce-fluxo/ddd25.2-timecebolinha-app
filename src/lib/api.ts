@@ -84,7 +84,7 @@ export async function atualizarUsuario(id:number, dados:{
   email_usuario?: string
   nu_celular?: string
   cpf?: string
-  dt_nascimento?: string
+  data_nascimento?: string
 }){
   const {data} = await api.patch(`/usuarios/unico/editar/${id}`, dados)
   return data

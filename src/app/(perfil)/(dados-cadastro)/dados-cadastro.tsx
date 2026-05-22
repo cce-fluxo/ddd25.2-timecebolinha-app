@@ -16,7 +16,12 @@ export default function dadosCadastro(){
     const [email, setEmail] = useState(String(params.email ?? ''))
     const [celular, setCelular] = useState(String(params.celular ?? ''))
     const [cpf, setCpf] = useState(String(params.cpf ?? ''))
-    const [nascimento, setNascimento] = useState(String(params.nascimento ?? ''))
+    function formatarData(valor: string): string {
+    if (!valor || valor.includes('/')) return valor; // já formatado
+    const d = new Date(valor);
+    return `${String(d.getUTCDate()).padStart(2, '0')}/${String(d.getUTCMonth() + 1).padStart(2, '0')}/${d.getUTCFullYear()}`;
+  }
+    const [nascimento, setNascimento] = useState(formatarData(String(params.nascimento ?? '')))
 
     const [editandoNome, setEditandoNome] = useState(false)
     const [editandoEmail, setEditandoEmail] = useState(false)
@@ -103,7 +108,7 @@ export default function dadosCadastro(){
                 {editandoNascimento
                 ? <TextInput className="ml-4 border-b border-indigo-400" value={nascimento} onChangeText={setNascimento} onBlur={async() => {
                     setEditandoNascimento(false);
-                    await atualizarUsuario(Number(params.id), {dt_nascimento: nascimento})
+                    await atualizarUsuario(Number(params.id), {data_nascimento: nascimento})
                 }} autoFocus keyboardType="numeric" />
                     : <Text className="ml-4">{nascimento}</Text>
             }
