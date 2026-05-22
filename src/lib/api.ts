@@ -17,14 +17,14 @@ const api = axios.create({
 
 // essa parte ai de cima basicamente é pra fazer o IP deixar de ser hardcoded e o app funcionar em qualquer IP
 
-// Interceptor de REQUEST: injeta o token JWT em toda requisição autenticada
-api.interceptors.request.use(async (config) => {
-  const token = await storage.getItem('access_token')
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`
+// removi o interceptor de request e coloquei uma função chamada setAuthToken
+export function setAuthToken(token:string | null){
+  if(token){
+    api.defaults.headers.common['Authorization'] = `Bearer ${token}`
+  }else{
+    delete api.defaults.headers.common['Authorization']
   }
-  return config
-})
+}
 
 // Interceptor de RESPONSE: extrai a mensagem de erro do backend de forma padronizada
 api.interceptors.response.use(

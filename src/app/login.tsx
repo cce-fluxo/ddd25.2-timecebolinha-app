@@ -14,13 +14,23 @@ export default function Index() {
   const [senha_usuario, setSenha] = useState("")
   const [erro, setErro] = useState("")
   async function handleLogin() {
-    setErro("")
-    try {
-      await login(email, senha_usuario)
-      router.replace("/home/page")
-    } catch (error: any) {
-      setErro(error?.message ?? "E-mail ou senha inválidos.")
-    }
+      setErro("")
+      try {
+          const usuario = await login(email, senha_usuario)
+          router.replace({
+              pathname: "/(perfil)/(dados-cadastro)/dados-cadastro",
+              params: {
+                  id: usuario.id,
+                  nome: usuario.no_usuario,
+                  email: usuario.email_usuario,
+                  celular: usuario.nu_celular,
+                  cpf: usuario.cpf,
+                  nascimento: usuario.data_nascimento,
+              }
+          })
+      } catch (error: any) {
+          setErro(error?.message ?? "E-mail ou senha inválidos.")
+      }
   }
 
   return (
@@ -45,7 +55,7 @@ export default function Index() {
         </View>
         <View className="w-full items-center justify-center gap-4 mt-4 px-8">
           <BotaoPadrao texto="Entrar" tipo={1} onPress= {() => handleLogin()} ></BotaoPadrao>
-          <BotaoPadrao texto="Cadastrar" tipo={2} onPress={() => router.push("/cadastrar/page")}></BotaoPadrao>
+          <BotaoPadrao texto="Cadastrar" tipo={2} onPress={() => router.push("/(perfil)/(dados-cadastro)/dados-cadastro")}></BotaoPadrao>
         </View>
       </View>
     </View>
