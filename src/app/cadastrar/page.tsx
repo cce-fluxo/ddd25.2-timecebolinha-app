@@ -81,26 +81,36 @@ export default function RegisterScreen() {
     const [erroServidor, setErroServidor] = React.useState('')
 
     async function handleSubmit(values: typeof initialValues) {
-        setErroServidor('')
-        try {
-            await criarPaciente({
-                rg: values.rg,
-                usuario: {
-                    no_usuario: `${values.nome} ${values.sobrenome}`,
-                    email_usuario: values.email,
-                    senha_usuario: values.senha,
-                    cpf: values.cpf,
-                    nu_celular: values.celular,
-                    genero: 'NaoInformado',
-                    data_nascimento: `${values.ano}-${values.mes}-${values.dia}`,
-                }
-            });
-            router.push('/');
-        } catch (error: any) {
-            const msg = error?.message ?? 'Erro ao criar conta. Tente novamente.'
-            setErroServidor(msg)
-        }
-    }
+       setErroServidor('')
+
+       try{
+        const resultado = await criarPaciente({
+            rg:values.rg,
+            usuario: {
+                no_usuario: `${values.nome} ${values.sobrenome}`,
+                email_usuario: values.email,
+                senha_usuario: values.senha,
+                cpf: values.cpf,
+                nu_celular: values.celular,
+                genero: 'NaoInformado',
+                data_nascimento: `${values.ano} -- ${values.mes}--${values.dia}`
+            }
+        });
+        router.push({
+            pathname: '/(perfil)/(dados-cadastro)/dados-cadastro', // pagina que ele entrar quando o usuário se cadastrar
+            params:{
+                id: resultado.id,
+                nome: `${values.nome} ${values.sobrenome}`,
+                email: values.email,
+                celular: values.celular,
+                cpf: values.cpf,
+                nascimento: `${values.dia}/${values.mes}/${values.ano}`
+            }
+        })
+       } catch(errror:any){
+        const mensagem = errror?.message ?? 'Erro ao criar conta. Tente novamente'
+        setErroServidor(mensagem)
+       }
 
     return (
         <ScrollView className="flex-1 bg-white">  
@@ -290,17 +300,6 @@ export default function RegisterScreen() {
                             <BotaoPadrao texto="Criar Conta" tipo={1} onPress={()=>{
                                 formikSubmit();
                                 console.log('clicou');
-                                router.push({
-                                    pathname:'/(perfil)/(dados-cadastro)/dados-cadastro',
-                                    params:{
-                                    nome:`${values.nome} ${values.sobrenome}`,
-                                    email: values.email,
-                                    celular: values.celular,
-                                    cpf: values.cpf,
-                                    nascimento: `${values.dia}/ ${values.mes}/ ${values.ano}`
-                                    // pegar os dados aqui pra colocar no dados-cadastro e aparecer na tela
-                                    }
-                                })
                             }}></BotaoPadrao>
                         </View>                    
                     </View>
@@ -311,4 +310,5 @@ export default function RegisterScreen() {
         </ScrollView>
         //onPress={formikSubmit}     
     );
+}
 }

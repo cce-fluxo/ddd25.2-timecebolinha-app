@@ -17,7 +17,7 @@ export default function Index() {
     setErro("")
     try {
       await login(email, senha_usuario)
-      router.replace("/home/page")
+      router.replace("/(perfil)/(dados-cadastro)/dados-cadastro") // aqui ele redireciona pro dados cadastro quando faz o login
     } catch (error: any) {
       setErro(error?.message ?? "E-mail ou senha inválidos.")
     }
@@ -45,7 +45,7 @@ export default function Index() {
         </View>
         <View className="w-full items-center justify-center gap-4 mt-4 px-8">
           <BotaoPadrao texto="Entrar" tipo={1} onPress= {() => handleLogin()} ></BotaoPadrao>
-          <BotaoPadrao texto="Cadastrar" tipo={2} onPress={() => router.push("/cadastrar/page")}></BotaoPadrao>
+          <BotaoPadrao texto="Cadastrar" tipo={2} onPress={() => router.push("/(perfil)/(dados-cadastro)/dados-cadastro")}></BotaoPadrao>
         </View>
       </View>
     </View>
