@@ -7,7 +7,7 @@ import BotaoPadrao from '../../components/BotaoPadrao';
 import HeaderLogin from '../../components/HeaderLogin';
 import { InputBar } from '../../components/InputsCadastro';
 import { criarPaciente } from '../../lib/api';
-import * as path from 'node:path';
+import { useAuth } from '@/src/context/AuthContext';
 
 const registerSchema = Yup.object().shape({
 
@@ -78,13 +78,14 @@ const initialValues = {
 
 export default function RegisterScreen() {
     const router = useRouter();
+    const {login} = useAuth()
     const [erroServidor, setErroServidor] = React.useState('')
 
     async function handleSubmit(values: typeof initialValues) {
        setErroServidor('')
 
        try{
-        const resultado = await criarPaciente({
+         await criarPaciente({
             rg:values.rg,
             usuario: {
                 no_usuario: `${values.nome} ${values.sobrenome}`,
@@ -93,13 +94,16 @@ export default function RegisterScreen() {
                 cpf: values.cpf,
                 nu_celular: values.celular,
                 genero: 'NaoInformado',
-                data_nascimento: `${values.ano}-${values.mes}-${values.dia}`
+                data_nascimento: `${values.ano}-${String(values.mes).padStart(2, '0')}-${String(values.dia).padStart(2, '0')}` // botar um padding 0 pq 2-5-2000 por exemplo é uma data inválida
             }
         });
+
+        const usuario = await login(values.email, values.senha);
+
         router.push({
             pathname: '/(perfil)/(dados-cadastro)/dados-cadastro', // pagina que ele entrar quando o usuário se cadastrar
             params:{
-                id: resultado.id_usuario,
+                id: usuario.id_usuario ?? usuario.id,
                 nome: `${values.nome} ${values.sobrenome}`,
                 email: values.email,
                 celular: values.celular,
