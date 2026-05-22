@@ -93,13 +93,13 @@ export default function RegisterScreen() {
                 cpf: values.cpf,
                 nu_celular: values.celular,
                 genero: 'NaoInformado',
-                data_nascimento: `${values.ano} -- ${values.mes}--${values.dia}`
+                data_nascimento: `${values.ano}-${values.mes}-${values.dia}`
             }
         });
         router.push({
             pathname: '/(perfil)/(dados-cadastro)/dados-cadastro', // pagina que ele entrar quando o usuário se cadastrar
             params:{
-                id: resultado.id,
+                id: resultado.id_usuario,
                 nome: `${values.nome} ${values.sobrenome}`,
                 email: values.email,
                 celular: values.celular,
@@ -111,6 +111,7 @@ export default function RegisterScreen() {
         const mensagem = errror?.message ?? 'Erro ao criar conta. Tente novamente'
         setErroServidor(mensagem)
        }
+    }
 
     return (
         <ScrollView className="flex-1 bg-white">  
@@ -310,5 +311,4 @@ export default function RegisterScreen() {
         </ScrollView>
         //onPress={formikSubmit}     
     );
-}
 }

@@ -14,13 +14,23 @@ export default function Index() {
   const [senha_usuario, setSenha] = useState("")
   const [erro, setErro] = useState("")
   async function handleLogin() {
-    setErro("")
-    try {
-      await login(email, senha_usuario)
-      router.replace("/(perfil)/(dados-cadastro)/dados-cadastro") // aqui ele redireciona pro dados cadastro quando faz o login
-    } catch (error: any) {
-      setErro(error?.message ?? "E-mail ou senha inválidos.")
-    }
+      setErro("")
+      try {
+          const usuario = await login(email, senha_usuario)
+          router.replace({
+              pathname: "/(perfil)/(dados-cadastro)/dados-cadastro",
+              params: {
+                  id: usuario.id,
+                  nome: usuario.no_usuario,
+                  email: usuario.email_usuario,
+                  celular: usuario.nu_celular,
+                  cpf: usuario.cpf,
+                  nascimento: usuario.data_nascimento,
+              }
+          })
+      } catch (error: any) {
+          setErro(error?.message ?? "E-mail ou senha inválidos.")
+      }
   }
 
   return (

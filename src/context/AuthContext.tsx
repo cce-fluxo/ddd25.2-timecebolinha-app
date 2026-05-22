@@ -13,7 +13,7 @@ interface AuthContextType {
   usuario: Paciente | null
   token: string | null
   carregando: boolean
-  login: (email: string, senha: string) => Promise<void>
+  login: (email: string, senha: string) => Promise<any>
   logout: () => void
 }
 
@@ -54,6 +54,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const dadosUsuario = await getMe(id)
     setToken(access_token)
     setUsuario(dadosUsuario)
+    return dadosUsuario // preciso retornar os dados do usuário quando ele fizer login, ai tenho que mudar isso #perdaodanilo
   }
 
   async function logout() {
