@@ -1,4 +1,4 @@
-import { Text, View, Image } from "react-native";
+import { Text, View, Image, Modal } from "react-native";
 import { TouchableOpacity } from "react-native";
 import InputBox from "@/src/components/InputBox";
 import { useRouter } from "expo-router";
@@ -13,6 +13,7 @@ export default function InserirNovaSenha(){
     const[confirmarSenha, setConfirmarSenha] = useState("")
     const [erro, setErro] = useState("")
     const [carregando, setCarregando] = useState(false)
+    const [popupVisivel, setPopupVisivel] = useState(false)
 
     async function confirmar() {
         if(novaSenha!== confirmarSenha){
@@ -23,7 +24,7 @@ export default function InserirNovaSenha(){
         try{
             setCarregando(true)
             await redefinirSenha(token, novaSenha)
-            router.push('/login')
+            setPopupVisivel(true)
         }catch (e:any){
             setErro(e.message ?? "Erro ao redefinir senha")
         }finally{
@@ -78,6 +79,17 @@ export default function InserirNovaSenha(){
         </View>
                 </TouchableOpacity>
             </View>
+            {/* colocar o meu pop up aqui, dessa vez usando modal em vez de criar o meu pop up do zero, pq nao tem a lógica do timeout */}
+
+            <Modal visible={popupVisivel}  animationType="fade">
+                <View className="flex-1 bg-white flex-col p-8 justify-center items-center gap-4">
+                    <Text className="flex text-center font-lato-bold text-lg">Senha alterada com sucesso!</Text>
+                    <TouchableOpacity className="flex w-32 px-3 py-4 justify-center items-center gap-3 rounded-xl bg-indigo-600" onPress={()=> 
+                        {setPopupVisivel(false) ; router.push('/login')}}>
+                        <Text className="text-center text-white text-xl font-lato-regular">Voltar</Text>
+                    </TouchableOpacity>
+                </View>
+            </Modal>
         </View>
     )
 }
