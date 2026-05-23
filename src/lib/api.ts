@@ -17,14 +17,14 @@ const api = axios.create({
 
 // essa parte ai de cima basicamente é pra fazer o IP deixar de ser hardcoded e o app funcionar em qualquer IP
 
-// Interceptor de REQUEST: injeta o token JWT em toda requisição autenticada
-api.interceptors.request.use(async (config) => {
-  const token = await storage.getItem('access_token')
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`
+// removi o interceptor de request e coloquei uma função chamada setAuthToken
+export function setAuthToken(token:string | null){
+  if(token){
+    api.defaults.headers.common['Authorization'] = `Bearer ${token}`
+  }else{
+    delete api.defaults.headers.common['Authorization']
   }
-  return config
-})
+}
 
 // Interceptor de RESPONSE: extrai a mensagem de erro do backend de forma padronizada
 api.interceptors.response.use(
@@ -84,8 +84,18 @@ export async function atualizarUsuario(id:number, dados:{
   email_usuario?: string
   nu_celular?: string
   cpf?: string
-  dt_nascimento?: string
+  data_nascimento?: string
 }){
   const {data} = await api.patch(`/usuarios/unico/editar/${id}`, dados)
   return data
 }
+
+// fazer funções referentes ao envio de um código pro email (o danilo já fez isso de enviar um código pra email no back, então vou só usar o que ele já fez)
+
+export const enviarCodigoEmail = (email_usuario : string) => api.post('/auth/esqueceu-senha', {email_usuario})
+
+export const validarToken = (token: string) => api.post('/auth/validar-token', { token })
+
+export const redefinirSenha = (token: string, nova_senha: string) => api.post('/auth/redefinir-senha', { token, nova_senha })
+
+
