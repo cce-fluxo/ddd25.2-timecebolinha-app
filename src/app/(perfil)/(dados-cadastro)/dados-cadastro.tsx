@@ -39,8 +39,9 @@ export default function dadosCadastro(){
             <View className="flex justify-center items-center mt-10 -ml-2">
 
              <View className="w-12 h-12  bg-indigo-600 rounded-full justify-center items-center gap-0.5 flex-row">
-                <Text className="text-white font-lato-bold text-2xl">{nome?.charAt(0).toUpperCase()}</Text>
-                <Text className="text-white font-lato-bold text-2xl">{nome?.charAt(1).toUpperCase()}</Text>
+                <Text className="text-white font-lato-bold text-2xl">{nome?.split(' ')[0]?.charAt(0).toUpperCase()}</Text>
+                <Text className="text-white font-lato-bold text-2xl">{nome?.split(' ')[1]?.charAt(0).toUpperCase()}</Text>
+                {/*usei a função split pra pegar as inicias de nome e sobrenome do usuário */}
              </View>
              
             </View>
