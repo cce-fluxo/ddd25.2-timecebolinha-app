@@ -55,7 +55,7 @@ export default function Index() {
         </View>
         <View className="w-full items-center justify-center gap-4 mt-4 px-8">
           <BotaoPadrao texto="Entrar" tipo={1} onPress= {() => handleLogin()} ></BotaoPadrao>
-          <BotaoPadrao texto="Cadastrar" tipo={2} onPress={() => router.push("/(perfil)/(dados-cadastro)/dados-cadastro")}></BotaoPadrao>
+          <BotaoPadrao texto="Cadastrar" tipo={2} onPress={() => router.push("/cadastrar/page")}></BotaoPadrao>
         </View>
       </View>
     </View>

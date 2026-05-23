@@ -94,4 +94,8 @@ export async function atualizarUsuario(id:number, dados:{
 
 export const enviarCodigoEmail = (email_usuario : string) => api.post('/auth/esqueceu-senha', {email_usuario})
 
+export const validarToken = (token: string) => api.post('/auth/validar-token', { token })
+
+export const redefinirSenha = (token: string, nova_senha: string) => api.post('/auth/redefinir-senha', { token, nova_senha })
+
 

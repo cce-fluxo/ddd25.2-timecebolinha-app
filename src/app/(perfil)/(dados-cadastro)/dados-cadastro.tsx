@@ -38,8 +38,11 @@ export default function dadosCadastro(){
             {/* a parte da imagem de perfil vai ficar aqui em baixo */}
             <View className="flex justify-center items-center mt-10 -ml-2">
 
-            <Image style={{width:60, height:60}} resizeMode="contain" source={require('../../../../assets/images/Will.png')}></Image>
-            
+             <View className="w-12 h-12  bg-indigo-600 rounded-full justify-center items-center gap-0.5 flex-row">
+                <Text className="text-white font-lato-bold text-2xl">{nome?.charAt(0).toUpperCase()}</Text>
+                <Text className="text-white font-lato-bold text-2xl">{nome?.charAt(1).toUpperCase()}</Text>
+             </View>
+             
             </View>
 
             <View className="flex">

@@ -6,6 +6,7 @@ import InputBox from '../../../../components/InputBox';
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { useAuth } from "@/src/context/AuthContext";
+import { enviarCodigoEmail } from "@/src/lib/api";
 
 export default function EmailCadastrado(){
     // fiz uma lógica de estados pra verificar um email que o usuário digita e também pra mostrar um erro caso o usuário cometa algum
@@ -13,13 +14,23 @@ export default function EmailCadastrado(){
     const {usuario} = useAuth()
     const [emailDigitado, setEmailDigitado] = useState("")
     const [erro, setErro] = useState("")
+    const [carregando, setCarregando] = useState(false)
 
-    function verificarEmail(){
+    async function verificarEmail(){
         if(emailDigitado.trim().toLowerCase() !== usuario?.email_usuario?.toLowerCase()){
             setErro("O email informado não corresponde ao cadastrado")
-            return // isso verifica se o email digitado é igual ao cadastrado (email do usuário)
+            return
         }
-        router.push('/codigo-email')
+        try{
+            setCarregando(true)
+            await enviarCodigoEmail(emailDigitado.trim())
+        router.push(`/codigo-email?email=${encodeURIComponent(emailDigitado.trim())}`)
+        } catch(e:any){
+            setErro(e.message ?? "Erro ao enviar código")
+        }
+        finally{
+            setCarregando(false)
+        }
     }
     return(
         <View>
@@ -53,7 +64,7 @@ export default function EmailCadastrado(){
             {/* botão de continuar */}
 
             <View style={{width: '50%', marginLeft:110, marginTop:40}}>
-            <TouchableOpacity onPress={verificarEmail}>
+            <TouchableOpacity disabled={carregando} onPress={verificarEmail}>
             <View style={{flex:1, width:'100%', borderRadius: 8}}>
             <View className="flex w-[50%] ml-5 px-1 py-2 justify-center items-center bg-indigo-600 text-white font-normal border border-r-2 border-white rounded-xl">
             <Text className="text-white">Continuar</Text>

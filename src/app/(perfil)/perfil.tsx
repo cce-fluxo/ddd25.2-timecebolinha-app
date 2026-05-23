@@ -25,7 +25,12 @@ export default function Perfil(){
         <View >
             <HeaderInApp></HeaderInApp>
             <View className="flex flex-row mt-12 px-6 items-center gap-4">
-                <Image style={{height:48, width:48}} resizeMode="contain" source={require('../../../assets/images/Will.png')}></Image>
+                {/*vou fazer um placeholder com as iniciais do nome, já que no back não tem campo de foto do usuário */}
+                <View className="h-12 w-12 rounded-full bg-indigo-600 justify-center items-center">
+                    <Text className="text-white font-lato-bold text-xl">
+                            {usuario?.no_usuario?.charAt(0).toUpperCase()}
+                    </Text>
+                </View>
                 <View className="flex flex-row justify-end gap-2">
                 <Text className="text-lg text-black font-lato-bold">{usuario?.no_usuario}</Text>
                 <TouchableOpacity onPress={() =>{
