@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
-import { getMe, login as loginApi, Paciente } from "../lib/api";
+import { getMe, login as loginApi, Paciente, setAuthToken } from "../lib/api";
 import { storage } from '../utils/storage';
 
 function decodeJwt(token: string): { id: number; email: string } {
@@ -13,7 +13,7 @@ interface AuthContextType {
   usuario: Paciente | null
   token: string | null
   carregando: boolean
-  login: (email: string, senha: string) => Promise<void>
+  login: (email: string, senha: string) => Promise<any>
   logout: () => void
 }
 
@@ -34,6 +34,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         const tokenSalvo = await storage.getItem("access_token")
         if (!tokenSalvo) return
 
+        setAuthToken(tokenSalvo)
         const { id } = decodeJwt(tokenSalvo)
         setToken(tokenSalvo)
         const dadosUsuario = await getMe(id)
@@ -50,14 +51,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   async function login(email: string, senha: string) {
     const { access_token } = await loginApi(email, senha)
     await storage.setItem("access_token", access_token)
+    setAuthToken(access_token) // adicionei aqui pra ele pegar o token de acesso no login
     const { id } = decodeJwt(access_token)
     const dadosUsuario = await getMe(id)
     setToken(access_token)
     setUsuario(dadosUsuario)
+    return dadosUsuario // preciso retornar os dados do usuário quando ele fizer login, ai tenho que mudar isso #perdaodanilo
   }
 
   async function logout() {
     await storage.deleteItem("access_token")
+    setAuthToken(null)
     setToken(null)
     setUsuario(null)
   }

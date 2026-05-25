@@ -7,7 +7,7 @@ import BotaoPadrao from '../../components/BotaoPadrao';
 import HeaderLogin from '../../components/HeaderLogin';
 import { InputBar } from '../../components/InputsCadastro';
 import { criarPaciente } from '../../lib/api';
-import * as path from 'node:path';
+import { useAuth } from '@/src/context/AuthContext';
 
 const registerSchema = Yup.object().shape({
 
@@ -78,28 +78,43 @@ const initialValues = {
 
 export default function RegisterScreen() {
     const router = useRouter();
+    const {login} = useAuth()
     const [erroServidor, setErroServidor] = React.useState('')
 
     async function handleSubmit(values: typeof initialValues) {
-        setErroServidor('')
-        try {
-            await criarPaciente({
-                rg: values.rg,
-                usuario: {
-                    no_usuario: `${values.nome} ${values.sobrenome}`,
-                    email_usuario: values.email,
-                    senha_usuario: values.senha,
-                    cpf: values.cpf,
-                    nu_celular: values.celular,
-                    genero: 'NaoInformado',
-                    data_nascimento: `${values.ano}-${values.mes}-${values.dia}`,
-                }
-            });
-            router.push('/');
-        } catch (error: any) {
-            const msg = error?.message ?? 'Erro ao criar conta. Tente novamente.'
-            setErroServidor(msg)
-        }
+       setErroServidor('')
+
+       try{
+         await criarPaciente({
+            rg:values.rg,
+            usuario: {
+                no_usuario: `${values.nome} ${values.sobrenome}`,
+                email_usuario: values.email,
+                senha_usuario: values.senha,
+                cpf: values.cpf,
+                nu_celular: values.celular,
+                genero: 'NaoInformado',
+                data_nascimento: `${values.ano}-${String(values.mes).padStart(2, '0')}-${String(values.dia).padStart(2, '0')}` // botar um padding 0 pq 2-5-2000 por exemplo é uma data inválida
+            }
+        });
+
+        const usuario = await login(values.email, values.senha);
+
+        router.push({
+            pathname: '/(perfil)/(dados-cadastro)/dados-cadastro', // pagina que ele entrar quando o usuário se cadastrar
+            params:{
+                id: usuario.id_usuario ?? usuario.id,
+                nome: `${values.nome} ${values.sobrenome}`,
+                email: values.email,
+                celular: values.celular,
+                cpf: values.cpf,
+                nascimento: `${values.dia}/${values.mes}/${values.ano}`
+            }
+        })
+       } catch(errror:any){
+        const mensagem = errror?.message ?? 'Erro ao criar conta. Tente novamente'
+        setErroServidor(mensagem)
+       }
     }
 
     return (
@@ -290,17 +305,6 @@ export default function RegisterScreen() {
                             <BotaoPadrao texto="Criar Conta" tipo={1} onPress={()=>{
                                 formikSubmit();
                                 console.log('clicou');
-                                router.push({
-                                    pathname:'/(perfil)/(dados-cadastro)/dados-cadastro',
-                                    params:{
-                                    nome:`${values.nome} ${values.sobrenome}`,
-                                    email: values.email,
-                                    celular: values.celular,
-                                    cpf: values.cpf,
-                                    nascimento: `${values.dia}/ ${values.mes}/ ${values.ano}`
-                                    // pegar os dados aqui pra colocar no dados-cadastro e aparecer na tela
-                                    }
-                                })
                             }}></BotaoPadrao>
                         </View>                    
                     </View>

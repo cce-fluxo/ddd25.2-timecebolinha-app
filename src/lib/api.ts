@@ -1,18 +1,29 @@
 import axios from 'axios';
-import { storage } from '../utils/storage';
+import Constants from 'expo-constants';
+
+// em dev, ele vai pegar o IP do servidor Expo automaticamente
+
+const getBaseUrl = ()=> {
+  const host = Constants.expoConfig?.hostUri?.split(':')[0];
+  if(host) return `http://${host}:3100`;
+  //fallback pra web/produção
+  return process.env.EXPO_PUBLIC_BASE_URL ?? 'http://localhost:3100';
+}
 
 const api = axios.create({
-    baseURL: process.env.EXPO_PUBLIC_BASE_URL,
+    baseURL: getBaseUrl(),
 });
 
-// Interceptor de REQUEST: injeta o token JWT em toda requisição autenticada
-api.interceptors.request.use(async (config) => {
-  const token = await storage.getItem('access_token')
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`
+// essa parte ai de cima basicamente é pra fazer o IP deixar de ser hardcoded e o app funcionar em qualquer IP
+
+// removi o interceptor de request e coloquei uma função chamada setAuthToken
+export function setAuthToken(token:string | null){
+  if(token){
+    api.defaults.headers.common['Authorization'] = `Bearer ${token}`
+  }else{
+    delete api.defaults.headers.common['Authorization']
   }
-  return config
-})
+}
 
 // Interceptor de RESPONSE: extrai a mensagem de erro do backend de forma padronizada
 api.interceptors.response.use(
@@ -48,6 +59,16 @@ export interface PacientePayload {
     }
 }
 
+export interface Paciente{
+  id:number
+  no_usuario: string
+  email_usuario: string
+  nu_celular: string
+  cpf:string
+  data_nascimento: string
+  genero: string
+}
+
 export async function criarPaciente(payload: PacientePayload) {
     const { data } = await api.post('/paciente', payload);
     return data;
@@ -55,14 +76,14 @@ export async function criarPaciente(payload: PacientePayload) {
 
 export async function login(email: string, senha_usuario: string) {
   const { data } = await api.post<{ access_token: string ; id:number }>('/auth/login', {
-    email: email,
+    email_usuario: email, // Tinha que chamar "email_usuario" , não email
     senha_usuario: senha_usuario,
   })
   return data
 }
 
-export async function getUsuario(id:number){
-  const {data} = await api.get<Paciente>(`/usuarios/unico/${id}`)
+export async function getMe(id:number){
+  const {data} = await api.get(`/usuarios/unico/${id}`)
   return data
 }
 
@@ -73,8 +94,18 @@ export async function atualizarUsuario(id:number, dados:{
   email_usuario?: string
   nu_celular?: string
   cpf?: string
-  dt_nascimento?: string
+  data_nascimento?: string
 }){
   const {data} = await api.patch(`/usuarios/unico/editar/${id}`, dados)
   return data
 }
+
+// fazer funções referentes ao envio de um código pro email (o danilo já fez isso de enviar um código pra email no back, então vou só usar o que ele já fez)
+
+export const enviarCodigoEmail = (email_usuario : string) => api.post('/auth/esqueceu-senha', {email_usuario})
+
+export const validarToken = (token: string) => api.post('/auth/validar-token', { token })
+
+export const redefinirSenha = (token: string, nova_senha: string) => api.post('/auth/redefinir-senha', { token, nova_senha })
+
+

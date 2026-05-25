@@ -1,10 +1,36 @@
-import { Text, View, Image } from "react-native";
+import { Text, View, Image, Modal } from "react-native";
 import { TouchableOpacity } from "react-native";
 import InputBox from "@/src/components/InputBox";
 import { useRouter } from "expo-router";
+import { useState } from "react";
+import { useLocalSearchParams } from "expo-router";
+import { redefinirSenha } from "@/src/lib/api";
 
 export default function InserirNovaSenha(){
     const router = useRouter()
+    const {token}= useLocalSearchParams<{token:string}>()
+    const [novaSenha, setNovaSenha] = useState("")
+    const[confirmarSenha, setConfirmarSenha] = useState("")
+    const [erro, setErro] = useState("")
+    const [carregando, setCarregando] = useState(false)
+    const [popupVisivel, setPopupVisivel] = useState(false)
+
+    async function confirmar() {
+        if(novaSenha!== confirmarSenha){
+            setErro("As senhas não coincidem")
+            return
+        }
+
+        try{
+            setCarregando(true)
+            await redefinirSenha(token, novaSenha)
+            setPopupVisivel(true)
+        }catch (e:any){
+            setErro(e.message ?? "Erro ao redefinir senha")
+        }finally{
+            setCarregando(false)
+        }
+    }
     return(
         <View className="flex">
 
@@ -29,8 +55,9 @@ export default function InserirNovaSenha(){
             {/*colocar duas input boxes aqui*/}
 
             <View className="flex mt-5 w-[80%] ml-10 gap-4">
-                <InputBox tipo="string" onChange={()=> console.log('clicou')} placeholder="Nova senha"></InputBox>
-                <InputBox tipo="string" onChange={()=> console.log('clicou')} placeholder="Confirmar senha"></InputBox>
+                <InputBox tipo="string" onChange={(v) => {setNovaSenha(v) ; setErro("")}} placeholder="Nova senha"></InputBox>
+                <InputBox tipo="string" onChange={(v) => {setConfirmarSenha(v); setErro("")}} placeholder="Confirmar senha"></InputBox>
+                {erro ? <Text className="text-red-500 ml-10 mt-2">{erro}</Text> :null}
             </View>
 
             {/*botoes de baixo*/}
@@ -47,11 +74,22 @@ export default function InserirNovaSenha(){
                 {/*confirmar*/}
                 <View className="flex w-[35%] px-1 py-2 justify-center items-center bg-indigo-600 text-white font-normal border border-r-2 border-white rounded-xl">
                 <TouchableOpacity
-                onPress={()=> router.push("/perfil")}>Confirmar</TouchableOpacity>
+                onPress={confirmar} disabled={carregando}>Confirmar</TouchableOpacity>
                 </View>
         </View>
                 </TouchableOpacity>
             </View>
+            {/* colocar o meu pop up aqui, dessa vez usando modal em vez de criar o meu pop up do zero, pq nao tem a lógica do timeout */}
+
+            <Modal visible={popupVisivel}  animationType="fade">
+                <View className="flex-1 bg-white flex-col p-8 justify-center items-center gap-4">
+                    <Text className="flex text-center font-lato-bold text-lg">Senha alterada com sucesso!</Text>
+                    <TouchableOpacity className="flex w-32 px-3 py-4 justify-center items-center gap-3 rounded-xl bg-indigo-600" onPress={()=> 
+                        {setPopupVisivel(false) ; router.push('/login')}}>
+                        <Text className="text-center text-white text-xl font-lato-regular">Voltar</Text>
+                    </TouchableOpacity>
+                </View>
+            </Modal>
         </View>
     )
 }

@@ -16,7 +16,12 @@ export default function dadosCadastro(){
     const [email, setEmail] = useState(String(params.email ?? ''))
     const [celular, setCelular] = useState(String(params.celular ?? ''))
     const [cpf, setCpf] = useState(String(params.cpf ?? ''))
-    const [nascimento, setNascimento] = useState(String(params.nascimento ?? ''))
+    function formatarData(valor: string): string {
+    if (!valor || valor.includes('/')) return valor; // já formatado
+    const d = new Date(valor);
+    return `${String(d.getUTCDate()).padStart(2, '0')}/${String(d.getUTCMonth() + 1).padStart(2, '0')}/${d.getUTCFullYear()}`;
+  }
+    const [nascimento, setNascimento] = useState(formatarData(String(params.nascimento ?? '')))
 
     const [editandoNome, setEditandoNome] = useState(false)
     const [editandoEmail, setEditandoEmail] = useState(false)
@@ -33,8 +38,12 @@ export default function dadosCadastro(){
             {/* a parte da imagem de perfil vai ficar aqui em baixo */}
             <View className="flex justify-center items-center mt-10 -ml-2">
 
-            <Image style={{width:60, height:60}} resizeMode="contain" source={require('../../../../assets/images/Will.png')}></Image>
-            
+             <View className="w-12 h-12  bg-indigo-600 rounded-full justify-center items-center gap-0.5 flex-row">
+                <Text className="text-white font-lato-bold text-2xl">{nome?.split(' ')[0]?.charAt(0).toUpperCase()}</Text>
+                <Text className="text-white font-lato-bold text-2xl">{nome?.split(' ')[1]?.charAt(0).toUpperCase()}</Text>
+                {/*usei a função split pra pegar as inicias de nome e sobrenome do usuário */}
+             </View>
+             
             </View>
 
             <View className="flex">
@@ -103,7 +112,7 @@ export default function dadosCadastro(){
                 {editandoNascimento
                 ? <TextInput className="ml-4 border-b border-indigo-400" value={nascimento} onChangeText={setNascimento} onBlur={async() => {
                     setEditandoNascimento(false);
-                    await atualizarUsuario(Number(params.id), {dt_nascimento: nascimento})
+                    await atualizarUsuario(Number(params.id), {data_nascimento: nascimento})
                 }} autoFocus keyboardType="numeric" />
                     : <Text className="ml-4">{nascimento}</Text>
             }
