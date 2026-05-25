@@ -1,14 +1,9 @@
-import { View } from "react-native";
-import { Text } from "react-native"; // sempre trazer os caras do react-native, nao do outro lá, pra funcionar o tailwind
-import { Image } from "react-native";
-import HeaderInApp from '../../components/HeaderInApp';
-import { useRouter } from "expo-router";
-import { TouchableOpacity } from "react-native";
-import { useState, useEffect } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getUsuario } from "@/src/lib/api";
-import HeaderInApp from "@/src/components/HeaderInApp";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
+import { useEffect, useState } from "react";
+import { Image, Text, TouchableOpacity, View } from "react-native";
+import HeaderInApp from '../../components/HeaderInApp';
 
 export default function Perfil(){
     const router = useRouter()
@@ -58,7 +53,9 @@ export default function Perfil(){
 
                     <View className="flex flex-row justify-start py-2 items-center gap-4 px-4 ">
                             <Image className="w-7 h-7 mt-2 -ml-1" resizeMode="contain" source={require('../../../assets/images/lock.png')}></Image>
-                            <TouchableOpacity onPress={()=> router.push('/(perfil)/(alterar-senha)/alterar-senha')}  className="font-lato-regular mt-2 text-black">Segurança</TouchableOpacity>
+                            <TouchableOpacity onPress={()=> router.push('/(perfil)/(alterar-senha)/alterar-senha')}  className="font-lato-regular mt-2 text-black">
+                                <Text>Segurança</Text>
+                            </TouchableOpacity>
                     </View>
 
                     {/*esses outros botões abaixo do botão de alterar senha são botões dummy no figma, eles não levam a lugar nenhum e não tem tela pra eles, então vou deixar assim mesmo hard coded*/}

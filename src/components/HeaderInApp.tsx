@@ -1,6 +1,4 @@
-import { TouchableOpacity, View } from "react-native";
-import { Image } from "react-native";
-import { Text } from "@react-navigation/elements";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 
 export default function HeaderInApp(){
     return(

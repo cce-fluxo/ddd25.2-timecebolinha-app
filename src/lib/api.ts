@@ -26,6 +26,15 @@ api.interceptors.response.use(
 
 export default api;
 
+export interface Paciente {
+  id: number
+  no_usuario: string
+  email_usuario: string
+  nu_celular: string
+  cpf: string
+  data_nascimento: string
+}
+
 export interface PacientePayload {
     rg: string;
     usuario: {
@@ -53,9 +62,11 @@ export async function login(email: string, senha_usuario: string) {
 }
 
 export async function getUsuario(id:number){
-  const {data} = await api.get(`/usuarios/unico/${id}`)
+  const {data} = await api.get<Paciente>(`/usuarios/unico/${id}`)
   return data
 }
+
+export const getMe = getUsuario
 
 export async function atualizarUsuario(id:number, dados:{
   no_usuario?: string
