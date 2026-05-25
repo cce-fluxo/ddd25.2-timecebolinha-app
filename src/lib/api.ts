@@ -82,7 +82,7 @@ export async function login(email: string, senha_usuario: string) {
   return data
 }
 
-export async function getMe(id:number){
+export async function getUsuario(id:number){
   const {data} = await api.get(`/usuarios/unico/${id}`)
   return data
 }
