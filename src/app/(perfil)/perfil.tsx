@@ -1,20 +1,46 @@
-import { View } from "react-native";
-import { Text } from "react-native"; // sempre trazer os caras do react-native, nao do outro lá, pra funcionar o tailwind
-import { Image } from "react-native";
-import { TouchableOpacity } from "react-native";
-import HeaderInApp from "@/src/components/HeaderInApp";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
+import { useEffect, useState } from "react";
+import { Image, Text, TouchableOpacity, View } from "react-native";
+import HeaderInApp from '../../components/HeaderInApp';
 
 export default function Perfil(){
     const router = useRouter()
+    const [usuario, setUsuario] = useState<any>(null)
+    
+    useEffect(()=>{
+        async function carregarUsuario() {
+            const id = await AsyncStorage.getItem('id_usuario')
+            if(!id) return
+            const dados = await getMe(Number(id))
+            setUsuario(dados)
+        }
+        carregarUsuario()
+    },[])
     return(
         <View >
             <HeaderInApp></HeaderInApp>
             <View className="flex flex-row mt-12 px-6 items-center gap-4">
-                <Image style={{height:48, width:48}} resizeMode="contain" source={require('../../../assets/images/Will.png')}></Image>
+                {/*vou fazer um placeholder com as iniciais do nome, já que no back não tem campo de foto do usuário */}
+                <View className="h-12 w-12 rounded-full bg-indigo-600 justify-center items-center">
+                    <Text className="text-white font-lato-bold text-xl">
+                            {usuario?.no_usuario?.charAt(0).toUpperCase()}
+                    </Text>
+                </View>
                 <View className="flex flex-row justify-end gap-2">
-                <Text className="text-lg text-black font-lato-bold">Will Smith</Text>
-                <TouchableOpacity onPress={()=> router.push("/(perfil)/(dados-cadastro)/dados-cadastro")}>
+                <Text className="text-lg text-black font-lato-bold">{usuario?.no_usuario}</Text>
+                <TouchableOpacity onPress={() =>{
+                    router.push({
+                        pathname: '/(perfil)/(dados-cadastro)/dados-cadastro',
+                        params:{
+                            id:  usuario?.id,
+                            nome: usuario?.no_usuario,
+                            email: usuario?.email_usuario,
+                            celular: usuario?.nu_celular,
+                            cpf: usuario?.cpf,
+                            nascimento: usuario?.data_nascimento
+                        }
+                    })}}>
                 <Image style={{height:20, width:20, marginTop:5}} resizeMode="contain" source={require('../../../assets/images/BotaoDeEditar.png')}></Image>
                 </TouchableOpacity>
                 </View>
@@ -31,7 +57,9 @@ export default function Perfil(){
 
                     <View className="flex flex-row justify-start py-2 items-center gap-4 px-4 ">
                             <Image className="w-7 h-7 mt-2 -ml-1" resizeMode="contain" source={require('../../../assets/images/lock.png')}></Image>
-                            <TouchableOpacity onPress={()=> router.push('/(perfil)/(alterar-senha)/alterar-senha')}  className="font-lato-regular mt-2 text-black">Segurança</TouchableOpacity>
+                            <TouchableOpacity onPress={()=> router.push('/(perfil)/(alterar-senha)/alterar-senha')}  className="font-lato-regular mt-2 text-black">
+                                <Text>Segurança</Text>
+                            </TouchableOpacity>
                     </View>
 
                     {/*esses outros botões abaixo do botão de alterar senha são botões dummy no figma, eles não levam a lugar nenhum e não tem tela pra eles, então vou deixar assim mesmo hard coded*/}
