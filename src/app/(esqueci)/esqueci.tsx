@@ -1,7 +1,7 @@
 import EsqueciSenhaBotao from "@/src/components/EsqueciSenhaBotao";
 import EsqueciSenhaInputEmail from "@/src/components/EsqueciSenhaInputEmail";
 import EsqueciSenhaTitulo from "@/src/components/EsqueciSenhaTitulo";
-import { solicitarRecuperacaoSenha } from "@/src/lib/api";
+import { enviarCodigoEmail } from "@/src/lib/api";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Alert, ScrollView, Text, View } from "react-native";
@@ -23,7 +23,9 @@ export default function EsqueciSenhaScreen() {
   }
 
   async function handleContinuar() {
-    if (!email.trim()) {
+    const emailFormatado = email.trim();
+
+    if (!emailFormatado) {
       setErro("Por favor, insira seu e-mail.");
       return;
     }
@@ -32,11 +34,15 @@ export default function EsqueciSenhaScreen() {
     setLoading(true);
 
     try {
-      await solicitarRecuperacaoSenha(email.trim());
+      await enviarCodigoEmail(emailFormatado);
       Alert.alert(
         "E-mail enviado",
-        "Confira sua caixa de entrada para continuar a recuperação de senha."
+        "Confira sua caixa de entrada para continuar a recuperacao de senha.",
       );
+      router.push({
+        pathname: "/(esqueci)/(codigo-email)/esqueci2",
+        params: { email: emailFormatado },
+      } as never);
     } catch (error) {
       const mensagem =
         error instanceof Error

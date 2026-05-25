@@ -76,16 +76,6 @@ export async function login(email: string, senha_usuario: string) {
   return data;
 }
 
-export async function solicitarRecuperacaoSenha(email: string) {
-  const { data } = await api.post("/auth/esqueceu-senha", {
-    email_usuario: email,
-  });
-
-  await AsyncStorage.setItem("reset_email", email);
-
-  return data;
-}
-
 export async function getMe(id: number) {
   const { data } = await api.get(`/usuarios/unico/${id}`);
   return data;
