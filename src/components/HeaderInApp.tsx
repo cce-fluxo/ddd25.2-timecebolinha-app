@@ -4,7 +4,7 @@ export default function HeaderInApp(){
     return(
         <View className="w-full flex mt-10">
             {/* parte de cima da header */}
-            <View className="flex flex-row  w-110 h-23 px-6 py-6 justify-between items-center">
+            <View className="flex flex-row  w-full h-23 px-6 py-6 justify-between items-center">
                 <Image style={{width:100, height:30}} resizeMode="contain" source={require('../../assets/images/SorriSyncLogo.png')}></Image>
                 <TouchableOpacity onPress={()=> console.log('clicou')}>
                 <Image resizeMode="contain" source={require('../../assets/images/SinoNoti.png')}></Image>
