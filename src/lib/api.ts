@@ -3,15 +3,8 @@ import Constants from "expo-constants";
 
 // em dev, ele vai pegar o IP do servidor Expo automaticamente
 
-const getBaseUrl = () => {
-  const host = Constants.expoConfig?.hostUri?.split(":")[0];
-  if (host) return `http://${host}:3100`;
-  //fallback pra web/produção
-  return process.env.EXPO_PUBLIC_BASE_URL ?? "http://localhost:3100";
-};
-
 const api = axios.create({
-  baseURL: getBaseUrl(),
+  baseURL: 'https://ddd25-1-cebolinha67-back.onrender.com'
 });
 
 // essa parte ai de cima basicamente é pra fazer o IP deixar de ser hardcoded e o app funcionar em qualquer IP
@@ -90,7 +83,6 @@ export async function getMe(id: number) {
   return data;
 }
 
-export const getMe = getUsuario;
 
 export async function atualizarUsuario(
   id: number,
