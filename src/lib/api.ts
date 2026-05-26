@@ -1,27 +1,27 @@
-import axios from 'axios';
-import Constants from 'expo-constants';
+import axios from "axios";
+import Constants from "expo-constants";
 
 // em dev, ele vai pegar o IP do servidor Expo automaticamente
 
-const getBaseUrl = ()=> {
-  const host = Constants.expoConfig?.hostUri?.split(':')[0];
-  if(host) return `http://${host}:3100`;
+const getBaseUrl = () => {
+  const host = Constants.expoConfig?.hostUri?.split(":")[0];
+  if (host) return `http://${host}:3100`;
   //fallback pra web/produção
-  return process.env.EXPO_PUBLIC_BASE_URL ?? 'http://localhost:3100';
-}
+  return process.env.EXPO_PUBLIC_BASE_URL ?? "http://localhost:3100";
+};
 
 const api = axios.create({
-    baseURL: getBaseUrl(),
+  baseURL: getBaseUrl(),
 });
 
 // essa parte ai de cima basicamente é pra fazer o IP deixar de ser hardcoded e o app funcionar em qualquer IP
 
 // removi o interceptor de request e coloquei uma função chamada setAuthToken
-export function setAuthToken(token:string | null){
-  if(token){
-    api.defaults.headers.common['Authorization'] = `Bearer ${token}`
-  }else{
-    delete api.defaults.headers.common['Authorization']
+export function setAuthToken(token: string | null) {
+  if (token) {
+    api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  } else {
+    delete api.defaults.headers.common["Authorization"];
   }
 }
 
@@ -30,82 +30,87 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     const mensagem =
-      error.response?.data?.message ?? error.message ?? 'Erro desconhecido'
-    return Promise.reject(new Error(mensagem))
-  }
-)
+      error.response?.data?.message ?? error.message ?? "Erro desconhecido";
+    return Promise.reject(new Error(mensagem));
+  },
+);
 
 export default api;
 
 export interface Paciente {
-  id: number
-  no_usuario: string
-  email_usuario: string
-  nu_celular: string
-  cpf: string
-  data_nascimento: string
+  id: number;
+  no_usuario: string;
+  email_usuario: string;
+  nu_celular: string;
+  cpf: string;
+  data_nascimento: string;
 }
 
 export interface PacientePayload {
-    rg: string;
-    usuario: {
-        no_usuario: string;
-        email_usuario: string;
-        senha_usuario: string;
-        cpf: string;
-        nu_celular: string;
-        genero: 'Masculino' | 'Feminino' | 'Outros' | 'NaoInformado';
-        data_nascimento: string;
-    }
+  rg: string;
+  usuario: {
+    no_usuario: string;
+    email_usuario: string;
+    senha_usuario: string;
+    cpf: string;
+    nu_celular: string;
+    genero: "Masculino" | "Feminino" | "Outros" | "NaoInformado";
+    data_nascimento: string;
+  };
 }
 
-export interface Paciente{
-  id:number
-  no_usuario: string
-  email_usuario: string
-  nu_celular: string
-  cpf:string
-  data_nascimento: string
-  genero: string
+export interface Paciente {
+  id: number;
+  no_usuario: string;
+  email_usuario: string;
+  nu_celular: string;
+  cpf: string;
+  data_nascimento: string;
+  genero: string;
 }
 
 export async function criarPaciente(payload: PacientePayload) {
-    const { data } = await api.post('/paciente', payload);
-    return data;
+  const { data } = await api.post("/paciente", payload);
+  return data;
 }
 
 export async function login(email: string, senha_usuario: string) {
-  const { data } = await api.post<{ access_token: string ; id:number }>('/auth/login', {
-    email_usuario: email, // Tinha que chamar "email_usuario" , não email
-    senha_usuario: senha_usuario,
-  })
-  return data
+  const { data } = await api.post<{ access_token: string; id: number }>(
+    "/auth/login",
+    {
+      email_usuario: email, // Tinha que chamar "email_usuario" , não email
+      senha_usuario: senha_usuario,
+    },
+  );
+  return data;
 }
 
-export async function getUsuario(id:number){
-  const {data} = await api.get(`/usuarios/unico/${id}`)
-  return data
+export async function getMe(id: number) {
+  const { data } = await api.get(`/usuarios/unico/${id}`);
+  return data;
 }
 
-export const getMe = getUsuario
-
-export async function atualizarUsuario(id:number, dados:{
-  no_usuario?: string
-  email_usuario?: string
-  nu_celular?: string
-  cpf?: string
-  data_nascimento?: string
-}){
-  const {data} = await api.patch(`/usuarios/unico/editar/${id}`, dados)
-  return data
+export async function atualizarUsuario(
+  id: number,
+  dados: {
+    no_usuario?: string;
+    email_usuario?: string;
+    nu_celular?: string;
+    cpf?: string;
+    data_nascimento?: string;
+  },
+) {
+  const { data } = await api.patch(`/usuarios/unico/editar/${id}`, dados);
+  return data;
 }
 
 // fazer funções referentes ao envio de um código pro email (o danilo já fez isso de enviar um código pra email no back, então vou só usar o que ele já fez)
 
-export const enviarCodigoEmail = (email_usuario : string) => api.post('/auth/esqueceu-senha', {email_usuario})
+export const enviarCodigoEmail = (email_usuario: string) =>
+  api.post("/auth/esqueceu-senha", { email_usuario });
 
-export const validarToken = (token: string) => api.post('/auth/validar-token', { token })
+export const validarToken = (token: string) =>
+  api.post("/auth/validar-token", { token });
 
-export const redefinirSenha = (token: string, nova_senha: string) => api.post('/auth/redefinir-senha', { token, nova_senha })
-
-
+export const redefinirSenha = (token: string, nova_senha: string) =>
+  api.post("/auth/redefinir-senha", { token, nova_senha });
