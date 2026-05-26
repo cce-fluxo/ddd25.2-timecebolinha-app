@@ -1,3 +1,4 @@
+import { useAuth } from '@/src/context/AuthContext';
 import { useRouter } from 'expo-router';
 import { Formik } from 'formik';
 import React from 'react';
@@ -7,7 +8,6 @@ import BotaoPadrao from '../../components/BotaoPadrao';
 import HeaderLogin from '../../components/HeaderLogin';
 import { InputBar } from '../../components/InputsCadastro';
 import { criarPaciente } from '../../lib/api';
-import { useAuth } from '@/src/context/AuthContext';
 
 const registerSchema = Yup.object().shape({
 
@@ -299,7 +299,7 @@ export default function RegisterScreen() {
                     {/*Botões Criar Conta e Voltar*/}
                     <View className="flex-1 w-full flex-row gap-4 mt-6">
                         <View className='flex-1'>
-                            <BotaoPadrao texto="Voltar" tipo={3} onPress={() => router.push('/')}></BotaoPadrao>
+                            <BotaoPadrao texto="Voltar" tipo={3} onPress={() => router.push('/login')}></BotaoPadrao>
                         </View>
                         <View className='flex-1'>
                             <BotaoPadrao texto="Criar Conta" tipo={1} onPress={()=>{

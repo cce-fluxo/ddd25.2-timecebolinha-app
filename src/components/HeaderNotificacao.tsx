@@ -4,8 +4,8 @@ import { Image, Text, TouchableOpacity, View } from "react-native";
 export default function HeaderNotificacao(){
     const router = useRouter()
     return(
-        <View className="w-full h-24 bg-white flex flex-row items-center px-4">
-            <View className="w-[50%] h-full bg-white flex flex-row items-center gap-6">
+        <View className="w-full h-24 bg-white flex flex-row items-center px-4 border-b-2 border-gray-300">
+            <View className="w-[75%] h-full bg-white flex flex-row items-center gap-6">
                 <TouchableOpacity onPress={()=> router.push('/home/page')}>
                     <Image 
                         source={require('../../assets/images/FlexaEsquerda.png')}
@@ -14,7 +14,7 @@ export default function HeaderNotificacao(){
                 </TouchableOpacity>
                 <Text className="text-2xl font-bold text-[#5754DE]">Notificações</Text>
             </View>
-            <View className="w-[50%] h-full bg-white flex items-end justify-center">
+            <View className="w-[25%] h-full bg-white flex items-end justify-center">
                 <TouchableOpacity onPress={()=> router.push('/home/Notificacoes/page')}>
                     <Image
                         source={require('../../assets/images/Engrenagem.png')}
