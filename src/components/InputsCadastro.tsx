@@ -29,7 +29,7 @@ export function InputBar({
 }: InputBarProps) {
   return (
     <View className="mb-4">
-      <View className="flex w-full h-12 px-3.5 py-2.5 justify-between items-center rounded-[10px] border-[1.5px] border-[#e0e0e0]">
+      <View className="flex-row w-full h-14 px-3.5 py-2.5 justify-between items-center rounded-[10px] border-[1.5px] border-[#e0e0e0]">
         <TextInput
           keyboardType={keyboardType}
           secureTextEntry={isPassword}

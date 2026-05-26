@@ -1,8 +1,9 @@
+import { getMe } from "@/src/lib/api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
-import HeaderInApp from '../../components/HeaderInApp';
+import HeaderInPerfil from '../../components/HeaderinPerfil';
 
 export default function Perfil(){
     const router = useRouter()
@@ -19,7 +20,7 @@ export default function Perfil(){
     },[])
     return(
         <View >
-            <HeaderInApp></HeaderInApp>
+            <HeaderInPerfil></HeaderInPerfil>
             <View className="flex flex-row mt-12 px-6 items-center gap-4">
                 {/*vou fazer um placeholder com as iniciais do nome, já que no back não tem campo de foto do usuário */}
                 <View className="h-12 w-12 rounded-full bg-indigo-600 justify-center items-center">

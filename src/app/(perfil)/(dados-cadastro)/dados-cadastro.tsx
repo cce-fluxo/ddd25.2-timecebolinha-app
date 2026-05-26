@@ -1,11 +1,7 @@
-import { TextInput, View } from "react-native";
-import { Image } from "react-native";
-import { Text } from "react-native";
-import { TouchableOpacity } from "react-native";
-import { useRouter } from "expo-router";
-import { useLocalSearchParams } from "expo-router";
-import { useState } from "react";
 import { atualizarUsuario } from "@/src/lib/api";
+import { useLocalSearchParams, useRouter } from "expo-router";
+import { useState } from "react";
+import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
 
 // o único redirecionamento aqui é pra tela de criar convênio, que ainda não foi criada, então vou esperar pra ver a estrutura de qm for fazer pra codar esse redirecionamento e nn atrapalhar, quer dizer, isso além do redirecionamento da header, que eu vou fazer 
 
@@ -32,7 +28,7 @@ export default function dadosCadastro(){
         return(
         <View style={{flex:1}}>
             <TouchableOpacity onPress={()=> router.push("/(perfil)/perfil")}>
-            <Image style={{width:140, height:60, marginTop:20, marginLeft:20}} resizeMode="contain" source={require('../../../../assets/images/DadosCadastroApp.png')}></Image>
+                <Image style={{width:140, height:60, marginTop:20, marginLeft:20}} resizeMode="contain" source={require('../../../../assets/images/DadosCadastroApp.png')}></Image>
             </TouchableOpacity>
             <View className="w-full h-0.5 bg-gray-300 mt-1"></View>
             {/* a parte da imagem de perfil vai ficar aqui em baixo */}
@@ -178,26 +174,26 @@ export default function dadosCadastro(){
 
                 <View className="flex flex-col overflow-hidden justify-start ml-3 mt-3.5 mx-4 items-stretch border border-gray-400 rounded-xl"> 
                     {/* esse overflow-hidden coloca o backgorund dentro da caixinha dele */}
-                <View className="-ml-4 -mt-2" style={{flex:1}}>
-                <Text className="w-15 text-black ml-8 mt-2">Amil</Text>
-                <Text className="w-15 ml-8 text-gray-500 text-sm">00/00/00</Text>
-                <Text className="w-15 ml-8 text-gray-500 text-sm">019032367-09</Text>
-                <View className="relative">
-                    <View className="flex-row justify-end mr-1 absolute -top-6 right-0">                                                
-                    <Image style={{width:25, height:25}} resizeMode="contain"                                                       
-                    source={require('../../../../assets/images/BotaoDeEditar.png')} />
-                    </View>
-                    <View className="w-[94%] ml-5 h-0.5 bg-indigo-500"></View>
-                    <View className="flex px-3 py-5 h-2 w-full justify-center items-center text-indigo-700 gap-2 self-stretch bg-white border border-indigo-500">
-                        <TouchableOpacity
-                        onPress={()=> console.log('clicou')}
-                        className="bg-white w-[80%] ml-2 px-4 py-2 rounded-lg">
-                            <Text className="text-indigo-500 font-bold text-center">Adicionar Convênio</Text>
-                        </TouchableOpacity>
-                    </View>
+                    <View className="-ml-4 -mt-2" style={{flex:1}}>
+                        <Text className="w-15 text-black ml-8 mt-2">Amil</Text>
+                        <Text className="w-15 ml-8 text-gray-500 text-sm">00/00/00</Text>
+                        <Text className="w-15 ml-8 text-gray-500 text-sm">019032367-09</Text>
+                        <View className="relative">
+                            <View className="flex-row justify-end mr-1 absolute -top-6 right-0">                                                
+                                <Image style={{width:25, height:25}} resizeMode="contain"                                                       
+                                source={require('../../../../assets/images/BotaoDeEditar.png')} />
+                            </View>
+                            <View className="w-[94%] ml-5 h-0.5 bg-indigo-500"></View>
+                            <View className="flex px-3 py-5 h-2 w-full justify-center items-center text-indigo-700 gap-2 self-stretch bg-white border border-indigo-500">
+                                <TouchableOpacity
+                                onPress={()=> console.log('clicou')}
+                                className="bg-white w-[80%] ml-2 px-4 py-2 rounded-lg">
+                                    <Text className="text-indigo-500 font-bold text-center">Adicionar Convênio</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </View> 
                 </View>
-                </View> 
-                    </View>
-                </View>
+            </View>
     )
 }

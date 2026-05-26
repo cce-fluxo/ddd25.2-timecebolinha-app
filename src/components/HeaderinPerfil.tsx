@@ -1,7 +1,7 @@
 import { useRouter } from "expo-router";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 
-export default function HeaderInApp(){
+export default function HeaderInPerfil(){
     const router = useRouter();
     return(
         <View className="w-full flex mt-10">
@@ -17,21 +17,21 @@ export default function HeaderInApp(){
             <View className="w-full flex flex-row justify-center h-8 items-center"> 
                 {/* não tem <hr> no react-native, tem que usar uma view fina mesmo */}
                 <TouchableOpacity
-                    className="w-1/3 border-t-2 border-b-2 border-b-[#5754DE] border-t-[#5754DE] flex items-center justify-center"
+                    className="w-1/3 border-t-2 border-b-2 border-b-gray-300 border-t-gray-300 flex items-center justify-center"
                     onPress={()=>router.push("/home/page")}>
-                    <Text className="text-[#5754DE]">Inicio</Text>
+                    <Text className="text-black">Inicio</Text>
 
                 </TouchableOpacity>
                 {/* Alterar rota após criação de consultas */}
                 <TouchableOpacity
                     className="w-1/3 border-t-2 border-b-2 border-b-gray-300 border-t-gray-300 flex items-center justify-center"
-                    onPress={()=>router.push("/home/page")}> 
+                    onPress={()=>router.push("/home/page")}>
                     <Text className="text-black">Consultas</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                    className="w-1/3 border-t-2 border-b-2 border-b-gray-300 border-t-gray-300 flex items-center justify-center"
+                    className="w-1/3 border-t-2 border-b-2 border-b-[#5754DE] border-t-[#5754DE] flex items-center justify-center"
                     onPress={()=>router.push("/(perfil)/perfil")}>
-                    <Text className="text-black">Perfil</Text>
+                    <Text className="text-[#5754DE]">Perfil</Text>
                 </TouchableOpacity>
             </View>
         </View>
