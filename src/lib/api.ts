@@ -90,8 +90,6 @@ export async function getMe(id: number) {
   return data;
 }
 
-export const getMe = getUsuario;
-
 export async function atualizarUsuario(
   id: number,
   dados: {
