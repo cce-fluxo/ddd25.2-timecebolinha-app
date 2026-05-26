@@ -1,5 +1,4 @@
 import axios from "axios";
-import Constants from "expo-constants";
 
 // em dev, ele vai pegar o IP do servidor Expo automaticamente
 
@@ -108,3 +107,9 @@ export const validarToken = (token: string) =>
 
 export const redefinirSenha = (token: string, nova_senha: string) =>
   api.post("/auth/redefinir-senha", { token, nova_senha });
+
+//Da forma que fizemos notifições não consigo puxar todas de um só usuário
+export async function verMinhasNotificacoes(id_usuario: number) {
+  const { data } = await api.get(`/notificacoes/lista/minhasnotificacoes/${id_usuario}`);
+  return data;
+}

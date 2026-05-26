@@ -48,7 +48,9 @@ export default function Index() {
         </View>
         {erro && <Text className="text-red-500 text-sm">{erro}</Text>}
         <View className="w-full items-end justify-end mt-2">
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => router.push("/(esqueci)/esqueci")}
+          >
             <Text className="text-sm text-[#5754DE]">Esqueci minha senha</Text>
           </TouchableOpacity>
 
