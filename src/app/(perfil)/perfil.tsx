@@ -51,7 +51,11 @@ export default function Perfil(){
                 {/* fazer uma view com par de image e text para todos os elementos dessa área */}
                     <View className="flex flex-row justify-start py-2 items-center gap-4 px-4">
                             <Image className="h-7 w-7 mt-2 -ml-0.8" resizeMode="contain" source={require('../../../assets/images/DadosCadastrais.png')}></Image>
-                            <TouchableOpacity onPress={()=> router.push("/(perfil)/(dados-cadastro)/dados-cadastro")} className="font-lato-regular mt-2 text-black">Dados Cadastrais</TouchableOpacity>
+                            <TouchableOpacity onPress={()=> router.push("/(perfil)/(dados-cadastro)/dados-cadastro")} className="font-lato-regular mt-2 text-black">
+                                <Text>
+                                Dados Cadastrais
+                                </Text>
+                            </TouchableOpacity>
                     </View>
 
                    <View className="w-full h-0.5 bg-gray-400"></View>
